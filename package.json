@@ -1,0 +1,13 @@
+{
+  "homepage": "https://your-username.github.io/your-repo-name",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  },
+  "scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+}
+
