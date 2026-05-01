@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function Doctor() {
   const doctors = [
     {
+      id:1,
       name: "Dr. Aarav Sharma",
       specialty: "Cardiologist",
       experience: 12,
@@ -12,6 +13,8 @@ function Doctor() {
       image: "../images/dr1.jpg",
     },
     {
+            id:2,
+
       name: "Dr. Priya Verma",
       specialty: "Dermatologist",
       experience: 8,
@@ -20,6 +23,7 @@ function Doctor() {
       image: "../images/dr2.jpg",
     },
     {
+      id:3,
       name: "Dr. Rohan Gupta",
       specialty: "Neurologist",
       experience: 15,
@@ -28,6 +32,7 @@ function Doctor() {
       image: "../images/dr3.jpg",
     },
     {
+      id:4,
       name: "Dr. Anjali Singh",
       specialty: "Pediatrician",
       experience: 10,
@@ -36,6 +41,7 @@ function Doctor() {
       image: "../images/dr4.jpg",
     },
     {
+      id:5,
       name: "Dr. Sameer Khan",
       specialty: "Orthopedic",
       experience: 14,
@@ -44,6 +50,7 @@ function Doctor() {
       image: "../images/dr5.jpg",
     },
     {
+      id:6,
       name: "Dr. Neha Joshi",
       specialty: "Gynecologist",
       experience: 9,
@@ -52,6 +59,7 @@ function Doctor() {
       image: "../images/dr6.jpg",
     },
     {
+      id:7,
       name: "Dr. Vikram Mehta",
       specialty: "ENT Specialist",
       experience: 11,
@@ -93,19 +101,20 @@ function Doctor() {
     //     image: "../images/dr11.jpg"
     //   }
   ];
+  
   return (
-    <div className="my-18 mx-16">
-      <div className="flex justify-between">
+    <div className="doc-div my-18 mx-16">
+      <div className="top-doc flex justify-between">
         <h2 className="text-3xl">Top Doctors</h2>
         <Link to="/all-doctors">
-          <button className="border border-green-500 text-green-600 px-2 py-1 rounded-md cursor-pointer hover:text-white transition">
+          <button className="view-doc-btn border border-green-500 text-green-600 px-2 py-1 rounded-md cursor-pointer hover:text-white transition">
             view all
           </button>
         </Link>
       </div>
 
       <div
-        className="dr-div flex flex-wrap gap-7 mt-8 justify-center 
+        className="outer-doc-div dr-div flex flex-wrap gap-7 mt-8 justify-center 
      w-full"
       >
         {doctors.map((doc, index) => {
@@ -124,7 +133,7 @@ function Doctor() {
               </span>
               <h4>{doc.specialty}</h4>
               <p className="text-gray-400">{doc.experience}+ experience</p>
-              <button className="mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
+              <button className="consult-btn mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
                 Consult Now
               </button>
             </div>

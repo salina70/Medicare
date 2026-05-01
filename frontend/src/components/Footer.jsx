@@ -2,17 +2,17 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer style={styles.footer}>
+    <footer className="footer" style={styles.footer}>
       <div style={styles.container}>
         
-        <div style={styles.left}>
+        <div className="left-footer" style={styles.left}>
           <h3 style={styles.logo}>MediCare</h3>
           <p style={styles.text}>
             Your trusted healthcare management system.
           </p>
         </div>
 
-        <div style={styles.center}>
+        <div className="mid-footer" style={styles.center}>
           <h4>Quick Links</h4>
           <a href="/" style={styles.link}>Home</a>
           <a href="/about" style={styles.link}>About</a>
@@ -20,7 +20,7 @@ function Footer() {
           <a href="/contact" style={styles.link}>Contact</a>
         </div>
 
-        <div style={styles.right}>
+        <div className="right-footer" style={styles.right}>
           <h4>Contact</h4>
           <p style={styles.text}>📍 Kathmandu, Nepal</p>
           <p style={styles.text}>📧 support@medicare.com</p>
@@ -40,15 +40,17 @@ const styles = {
   footer: {
     backgroundColor: "#0f172a",
     color: "white",
-    marginTop: "40px",
+    marginTop: "30px",
   width: "100%",
   
   },
   container: {
     display: "flex",
+    
     justifyContent: "space-between",
     padding: "40px",
     flexWrap: "wrap",
+    gap:"2rem"
   },
   left: {
     flex: "1",

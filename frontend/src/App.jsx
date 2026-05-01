@@ -6,19 +6,23 @@ import Departments from "./components/Departments";
 import Howitworks from "./components/Howitworks";
 import Doctor from "./components/Doctor";
 import Footer from "./components/Footer";
+import DoctorProfile from "./components/DoctorProfile";
 
 
 
 function App() {
   return (
     <>
-<Header/>
+{/* <Header/>
 <Symptoms/>
 <Heropage/>
 <Doctor/>
 <Departments/>
 <Howitworks/>
-<Footer/>
+<Footer/> */}
+
+<DoctorProfile  />
+
     </>
   )
 }

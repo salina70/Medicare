@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../index.css';
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -24,14 +25,14 @@ function Header() {
 };
   return (
     <>
-<div className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2">
+<div id="navbar" className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2">
         {/* Logo */}
-        <div className="font-semibold text-2xl bg-linear-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+        <div className="logo font-semibold text-2xl bg-linear-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
           Medicare
         </div>
 
         {/* Search */}
-        <div className="relative w-[40%]">
+        <div className="search relative w-[40%]">
           <input
             type="text"
             className="border border-gray-400 rounded-2xl pl-10 pr-4 py-1.5 w-full focus:outline-none focus:border-green-500"
@@ -46,12 +47,12 @@ function Header() {
 
           <div
             onClick={() => setOpen(true)}
-            className="cursor-pointer mr-9 hover:scale-105 px-2 py-1.5"
+            className="be-a-doc cursor-pointer mr-9 hover:scale-105 px-2 py-1.5"
           >
             Be a doctor
           </div>
 
-          <div className="rounded-md px-4 py-1.5 text-sm bg-green-500 font-semibold text-black hover:bg-green-600">
+          <div className="sign-in rounded-md px-4 py-1.5 text-sm bg-green-500 font-semibold text-black hover:bg-green-600">
             <i className="fa-solid fa-user mr-1"></i>
             Sign in
           </div>

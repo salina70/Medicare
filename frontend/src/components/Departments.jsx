@@ -24,11 +24,11 @@ function Departments() {
     <>
       <div className="mb-18 mt-10">
         <h2 className="text-center text-3xl font-semibold">Our Departments</h2>
-        <p className="text-center text-gray-400">
+        <p className="dept-para text-center text-gray-400">
           Browse doctors according to the department and get an appointment
         </p>
 
-        <div className="flex flex-wrap gap-8 mt-13 justify-center">
+        <div className="dept-div flex flex-wrap gap-8 mt-13 justify-center">
           {departments.map((dept, ind) => {
             return (
               <div
@@ -36,7 +36,7 @@ function Departments() {
                 key={ind}
               >
                 <i className={`${dept.icon} text-green-600`}> </i>
-                <p>{dept.name}</p>
+                <p className="dept-name">{dept.name}</p>
               </div>
             );
           })}

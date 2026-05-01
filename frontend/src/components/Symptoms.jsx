@@ -76,7 +76,7 @@ function Symptoms() {
   ];
 
   return (
-    <div className="relative mt-10">
+    <div className="symptoms relative mt-10">
       {/* Left Button */}
       <button
         hidden={showLeft}
@@ -103,7 +103,7 @@ function Symptoms() {
       <button
         hidden={hideRight}
         onClick={scrollRight}
-        className="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-500 shadow-md rounded-full p-2 z-10 hover:bg-gray-400 pointer"
+        className="right-arrow absolute right-0 top-1/2 -translate-y-1/2 bg-gray-500 shadow-md rounded-full p-2 z-10 hover:bg-gray-400 pointer"
       >
         <i className="fa-solid fa-chevron-right"></i>
       </button>

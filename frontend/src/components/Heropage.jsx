@@ -50,16 +50,16 @@ function Heropage() {
 
   return (
     <>
-      <div className="flex mt-29 mb-18 gap-10">
+      <div className="hero flex mt-29 mb-18 gap-10">
         <div>
-          <h1 className="text-4xl">
+          <h1 className="book-app-text text-4xl">
             Book your appointment
-            <span className="block text-6xl italic text-green-600">
+            <span className="anytime block text-6xl italic text-green-600">
               anytime, anywhere
             </span>
           </h1>
 
-          <p className="text-xs text-gray-500 mt-4">
+          <p className="consult-text text-xs text-gray-500 mt-4">
             consult with doctors in video call and get your health checkup quickly
           </p>
 
