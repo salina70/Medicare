@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Doctor() {
-  const doctors = [
+   const doctors = [
     {
       id:1,
-      name: "Dr. Aarav Sharma",
+      name: "Dr. Ashma Sharma",
       specialty: "Cardiologist",
       experience: 12,
       fee: 1200,
@@ -15,7 +15,7 @@ function Doctor() {
     {
             id:2,
 
-      name: "Dr. Priya Verma",
+      name: "Dr. Rakesh Verma",
       specialty: "Dermatologist",
       experience: 8,
       fee: 900,
@@ -51,7 +51,7 @@ function Doctor() {
     },
     {
       id:6,
-      name: "Dr. Neha Joshi",
+      name: "Dr. Rohit Joshi",
       specialty: "Gynecologist",
       experience: 9,
       fee: 1000,
@@ -60,47 +60,48 @@ function Doctor() {
     },
     {
       id:7,
-      name: "Dr. Vikram Mehta",
+      name: "Dr. Nirita Mehta",
       specialty: "ENT Specialist",
       experience: 11,
       fee: 850,
       rating: 4.4,
       image: "../images/dr7.jpg",
     },
-    //   ,
-    //   {
-    //     name: "Dr. Sneha Reddy",
-    //     specialty: "Dentist",
-    //     experience: 7,
-    //     fee: 700,
-    //     rating: 4.6,
-    //     image: "../images/dr8.jpg"
-    //   },
-    //   {
-    //     name: "Dr. Amit Pandey",
-    //     specialty: "General Physician",
-    //     experience: 6,
-    //     fee: 500,
-    //     rating: 4.3,
-    //     image: "../images/dr9.jpg"
-    //   },
-    //   {
-    //     name: "Dr. Kavya Nair",
-    //     specialty: "Psychiatrist",
-    //     experience: 13,
-    //     fee: 1300,
-    //     rating: 4.8,
-    //     image: "../images/dr10.jpg"
-    //   },
-    //   {
-    //     name: "Dr. Rajat Bhandari",
-    //     specialty: "Cardiologist",
-    //     experience: 16,
-    //     fee: 1600,
-    //     rating: 4.9,
-    //     image: "../images/dr11.jpg"
-    //   }
+      ,
+      {
+        name: "Dr. Sneha Reddy",
+        specialty: "Dentist",
+        experience: 7,
+        fee: 700,
+        rating: 4.6,
+        image: "../images/dr8.jpg"
+      },
+      {
+        name: "Dr. Amit Pandey",
+        specialty: "General Physician",
+        experience: 6,
+        fee: 500,
+        rating: 4.3,
+        image: "../images/dr9.jpg"
+      },
+      {
+        name: "Dr. Kavya Nair",
+        specialty: "Psychiatrist",
+        experience: 13,
+        fee: 1300,
+        rating: 4.8,
+        image: "../images/dr10.jpg"
+      },
+      {
+        name: "Dr. Rajat Bhandari",
+        specialty: "Cardiologist",
+        experience: 16,
+        fee: 1600,
+        rating: 4.9,
+        image: "../images/dr11.jpg"
+      }
   ];
+  
   
   return (
     <div className="doc-div my-18 mx-16">
@@ -117,9 +118,10 @@ function Doctor() {
         className="outer-doc-div dr-div flex flex-wrap gap-7 mt-8 justify-center 
      w-full"
       >
-        {doctors.map((doc, index) => {
+        {doctors.map((doc) => {
           return (
-            <div key={index} className="dr-card my-4 w-50 relative">
+            <Link to={`/doctor/${doc.id}`}>
+            <div key={doc.id} className="dr-card my-4 w-50 relative">
               <img
                 src={doc.image}
                 alt={doc.name}
@@ -137,6 +139,7 @@ function Doctor() {
                 Consult Now
               </button>
             </div>
+            </Link>
           );
         })}
       </div>

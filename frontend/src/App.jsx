@@ -13,15 +13,14 @@ import DoctorProfile from "./components/DoctorProfile";
 function App() {
   return (
     <>
-{/* <Header/>
+<Header/>
 <Symptoms/>
 <Heropage/>
 <Doctor/>
 <Departments/>
 <Howitworks/>
-<Footer/> */}
+<Footer/>
 
-<DoctorProfile  />
 
     </>
   )

@@ -51,7 +51,7 @@ function Heropage() {
   return (
     <>
       <div className="hero flex mt-29 mb-18 gap-10">
-        <div>
+        <div className="inner-hero">
           <h1 className="book-app-text text-4xl">
             Book your appointment
             <span className="anytime block text-6xl italic text-green-600">
@@ -62,23 +62,23 @@ function Heropage() {
           <p className="consult-text text-xs text-gray-500 mt-4">
             consult with doctors in video call and get your health checkup quickly
           </p>
-
+<div className="btn-div">
           <button
             onClick={() => setOpen(true)}
-            className="btn my-7 transition bg-green-500 hover:bg-green-600 text-black font-semibold mt-4"
+            className="btn book-app-btn my-7 transition bg-green-500 hover:bg-green-600 text-black font-semibold mt-4"
           >
             Book Appointment
           </button>
 
         
-            <button onClick={()=>{setshowDept(!showDept);}} className="btn my-7 transition duration-300 border-2 border-green-600 ml-4">
+            <button onClick={()=>{setshowDept(!showDept);}} className="view-dept-btn btn my-7 transition duration-300 border-2 border-green-600 ml-4">
               View Departments
             </button>
-        
+       </div> 
         </div>
 
         <div>
-          <img className="w-[30rem] -mt-25" src="../images/doctor.png" alt="" />
+          <img className="hero-img w-[30rem] -mt-25" src="../images/doctor.png" alt="" />
         </div>
       </div>
 
