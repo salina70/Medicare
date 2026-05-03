@@ -3,6 +3,7 @@ import '../index.css';
 
 function Header() {
   const [open, setOpen] = useState(false);
+  const [signin, setSignin] = useState(false)
 
   const [formData, setformData] = useState(
     {name:"", speciality:"", email:"", experience:"", fee:""}
@@ -96,6 +97,23 @@ function Header() {
 
         </div>
       )}
+
+      {
+signin && (
+  <div className="outer-div">
+<div className="inner-div">
+<h2>  Create an Account</h2>
+<div className="form">
+  <form action="">
+    <input type="text" placeholder="Enter email" id="email" />
+    <input type="text" placeholder="Enter password" id="pass" />
+    <button type="submit"></button>
+  </form>
+</div>
+</div>
+  </div>
+)
+      }
     </>
   );
 }

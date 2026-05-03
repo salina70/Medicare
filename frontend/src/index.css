@@ -143,6 +143,7 @@ body{
   }
   .top-doc{
     width: 100%;
+    padding: 0px 1rem 0px 1rem;
   }
   .doc-div{
     margin: 0;
