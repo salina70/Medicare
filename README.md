@@ -1,4 +1,4 @@
-# Medicare – Doctor Appointment System (In Progress)
+# Medicare – Doctor Appointment System (MERN Stack In Progress)
 
 Medicare is a healthcare web application that allows users to browse doctors and book appointments online. The project focuses on building a clean, responsive frontend using React.
 
