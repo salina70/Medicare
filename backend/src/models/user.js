@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+const { use } = require("react")
 
 
 const userSchema=mongoose.Schema({
@@ -16,3 +17,5 @@ const userSchema=mongoose.Schema({
     },
      
 })
+
+module.exports("user", userSchema);
