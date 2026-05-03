@@ -7,6 +7,7 @@ export const doctors = [
     fee: 1200,
     rating: 4.8,
     location: "Maharajgunj",
+    education: "MBBS, MD (Cardiology)",
     description:
       "Experienced cardiologist specializing in heart disease prevention, diagnosis, and treatment. She has over 12 years of clinical experience handling cardiac emergencies, hypertension cases, and long-term heart care management.",
     image: "/images/dr1.jpg",
@@ -19,6 +20,7 @@ export const doctors = [
     fee: 900,
     rating: 4.6,
     location: "Baneshwor",
+    education: "MBBS, MD (Dermatology)",
     description:
       "Skin specialist focused on treating acne, eczema, allergies, pigmentation, and cosmetic dermatology. Known for patient-friendly consultations and modern skin treatment techniques.",
     image: "/images/dr2.jpg",
@@ -31,6 +33,7 @@ export const doctors = [
     fee: 1500,
     rating: 4.9,
     location: "Lalitpur",
+    education: "MBBS, DM (Neurology)",
     description:
       "Senior neurologist with expertise in brain and nervous system disorders including migraine, epilepsy, stroke management, and chronic neurological conditions with advanced diagnostic approach.",
     image: "/images/dr3.jpg",
@@ -43,6 +46,7 @@ export const doctors = [
     fee: 800,
     rating: 4.7,
     location: "Kalanki",
+    education: "MBBS, MD (Pediatrics)",
     description:
       "Dedicated child specialist providing comprehensive care for infants, toddlers, and adolescents. She focuses on vaccination, growth monitoring, nutrition, and childhood illness treatment.",
     image: "/images/dr4.jpg",
@@ -55,6 +59,7 @@ export const doctors = [
     fee: 1100,
     rating: 4.5,
     location: "Koteshwor",
+    education: "MBBS, MS (Orthopedics)",
     description:
       "Orthopedic expert specializing in bone fractures, joint pain, sports injuries, and musculoskeletal disorders. He is experienced in both surgical and non-surgical treatments.",
     image: "/images/dr5.jpg",
@@ -67,6 +72,7 @@ export const doctors = [
     fee: 1000,
     rating: 4.7,
     location: "Thapathali",
+    education: "MBBS, MS (Gynecology & Obstetrics)",
     description:
       "Gynecologist focused on women's reproductive health, pregnancy care, infertility treatment, and hormonal disorders. Known for compassionate patient care and safe delivery practices.",
     image: "/images/dr6.jpg",
@@ -79,6 +85,7 @@ export const doctors = [
     fee: 850,
     rating: 4.4,
     location: "Baneshwor",
+    education: "MBBS, MS (ENT)",
     description:
       "ENT specialist treating ear infections, sinus problems, throat infections, and hearing-related disorders. Skilled in both medical and minor surgical ENT procedures.",
     image: "/images/dr7.jpg",
@@ -91,6 +98,7 @@ export const doctors = [
     fee: 700,
     rating: 4.6,
     location: "Lalitpur",
+    education: "BDS, MDS (Dentistry)",
     description:
       "Dentist providing complete oral care including tooth cleaning, fillings, braces, root canal treatments, and cosmetic dentistry for improved dental health.",
     image: "/images/dr8.jpg",
@@ -103,6 +111,7 @@ export const doctors = [
     fee: 500,
     rating: 4.3,
     location: "Sundhara",
+    education: "MBBS, MD (General Medicine)",
     description:
       "General physician offering primary healthcare services for fever, infections, diabetes management, and routine health checkups with patient-centered care.",
     image: "/images/dr9.jpg",
@@ -115,6 +124,7 @@ export const doctors = [
     fee: 1300,
     rating: 4.8,
     location: "Jawalakhel",
+    education: "MBBS, MD (Psychiatry)",
     description:
       "Mental health specialist treating anxiety, depression, stress disorders, and behavioral issues using therapy and medical treatment approaches for overall mental wellness.",
     image: "/images/dr10.jpg",
@@ -127,6 +137,7 @@ export const doctors = [
     fee: 1600,
     rating: 4.9,
     location: "Maharajgunj",
+    education: "MBBS, DM (Cardiology)",
     description:
       "Highly experienced cardiologist specializing in advanced heart care, cardiac surgery support, and long-term management of cardiovascular diseases with excellent patient outcomes.",
     image: "/images/dr11.jpg",

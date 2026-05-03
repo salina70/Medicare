@@ -120,13 +120,21 @@ function Doctor() {
       >
         {doctors.map((doc) => {
           return (
-            <Link to={`/doctor/${doc.id}`}>
             <div key={doc.id} className="dr-card my-4 w-50 relative">
+                          <Link to={`/doctor/${doc.id}`}>
+              <div className="relative group">
               <img
                 src={doc.image}
                 alt={doc.name}
                 className="h-40 w-full object-cover object-top"
               />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+      <span className="text-white font-semibold text-lg">
+        View Profile
+      </span>
+      </div>
+    </div>
+                </Link>
               <h3 className="font-semibold inline-block text-green-500 mt-2">
                 {doc.name}
               </h3>
@@ -139,7 +147,7 @@ function Doctor() {
                 Consult Now
               </button>
             </div>
-            </Link>
+          
           );
         })}
       </div>
