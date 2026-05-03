@@ -175,7 +175,7 @@ const loginModal = ()=>{
     <>
       Already have an account?{" "}
       <span
-        className="text-red-500 cursor-pointer hover:text-red-800"
+        className="text-red-500 cursor-pointer hover:text-red-600"
         onClick={() => setLoggedin(false)}
       >
         Login
@@ -185,7 +185,7 @@ const loginModal = ()=>{
     <>
       New to account?{" "}
       <span
-        className="text-red-500 cursor-pointer hover:text-red-800"
+        className="text-red-500 cursor-pointer hover:text-red-600"
         onClick={() => setLoggedin(true)}
       >
         Sign up

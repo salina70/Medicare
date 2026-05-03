@@ -89,7 +89,7 @@ function Symptoms() {
       {/* Scroll Container */}
       <div ref={scrollRef} className="flex gap-4 overflow-hidden pr-12 pl-10">
         {symptoms.map((sym, index) => (
-          <div
+          <div 
             key={index}
             className="flex items-center gap-2 border border-gray-600 px-3 py-2 rounded-xl cursor-pointer transition flex-shrink-0"
           >

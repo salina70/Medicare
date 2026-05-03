@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Doctor() {
@@ -101,9 +101,10 @@ function Doctor() {
         image: "../images/dr11.jpg"
       }
   ];
-  
+  const [open, setopen] = useState(false)
   
   return (
+    <>
     <div className="doc-div my-18 mx-16">
       <div className="top-doc flex justify-between">
         <h2 className="text-3xl">Top Doctors</h2>
@@ -115,10 +116,10 @@ function Doctor() {
       </div>
 
       <div
-        className="outer-doc-div dr-div flex flex-wrap gap-7 mt-8 justify-center 
-     w-full"
+        className="outer-doc-div grid grid-cols-4"
       >
-        {doctors.map((doc) => {
+        {doctors.slice(0,4).map((doc) => {
+          
           return (
             <div key={doc.id} className="dr-card my-4 w-50 relative">
                           <Link to={`/doctor/${doc.id}`}>
@@ -143,7 +144,7 @@ function Doctor() {
               </span>
               <h4>{doc.specialty}</h4>
               <p className="text-gray-400">{doc.experience}+ experience</p>
-              <button className="consult-btn mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
+              <button onClick={()=>{alert("Feature is in progress")}} className="consult-btn mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
                 Consult Now
               </button>
             </div>
@@ -152,7 +153,16 @@ function Doctor() {
         })}
       </div>
     </div>
+
+
+
+
+
+
+    </>
   );
+
+  
 }
 
 export default Doctor;
