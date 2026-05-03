@@ -162,7 +162,7 @@ const loginModal = ()=>{
   <input type="text" placeholder="Retype Password" className="border-1 rounded-sm px-2 text-base py-2" id="cpass" />
   </>
 ):""
-};
+}
               <button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800 text-white font-semibold mt-4 py-1.5 rounded-sm"
