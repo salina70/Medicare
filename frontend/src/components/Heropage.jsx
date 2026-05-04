@@ -78,7 +78,7 @@ function Heropage() {
         </div>
 
         <div>
-          <img className="hero-img w-[30rem] -mt-25" src="../images/doctor.png" alt="" />
+          <img className="hero-img w-[30rem] -mt-25" src="../images/doctor.png" alt="" loading="lazy" />
         </div>
       </div>
 
