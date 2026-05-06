@@ -87,7 +87,7 @@ function Symptoms() {
       </button>
 
       {/* Scroll Container */}
-      <div ref={scrollRef} className="flex gap-4 overflow-hidden pr-12 pl-10">
+      <div ref={scrollRef} className="flex gap-4 overflow-hidden pr-12 pl-10 sym">
         {symptoms.map((sym, index) => (
           <div 
             key={index}

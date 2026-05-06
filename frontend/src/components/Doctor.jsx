@@ -107,7 +107,7 @@ function Doctor() {
     <>
     <div className="doc-div my-18 mx-16">
       <div className="top-doc flex justify-between">
-        <h2 className="text-3xl">Top Doctors</h2>
+        <h2 className="text-3xl top-doctors">Top Doctors</h2>
         <Link to="/all-doctors">
           <button className="view-doc-btn border border-green-500 text-green-600 px-2 py-1 rounded-md cursor-pointer hover:text-white transition">
             view all
@@ -142,8 +142,8 @@ function Doctor() {
               <span className="absolute top-0 right-0 text-sm bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
                 ⭐ {doc.rating}
               </span>
-              <h4>{doc.specialty}</h4>
-              <p className="text-gray-400">{doc.experience}+ experience</p>
+              <h4 className="spec-h4">{doc.specialty}</h4>
+              <p className="exp text-gray-400">{doc.experience}+ experience</p>
               <button onClick={()=>{alert("Feature is in progress")}} className="consult-btn mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
                 Consult Now
               </button>

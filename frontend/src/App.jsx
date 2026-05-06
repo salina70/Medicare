@@ -7,7 +7,7 @@ import Howitworks from "./components/Howitworks";
 import Doctor from "./components/Doctor";
 import Footer from "./components/Footer";
 import DoctorProfile from "./components/DoctorProfile";
-
+import FooterFixed from "./components/FooterFixed";
 
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
 <Departments/>
 <Howitworks/>
 <Footer/>
+<FooterFixed />
 
 
     </>

@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { doctors } from "../data/doctor";
 
 function AllDoctors() {
-  const [search, setSearch] = useState(false);
+  const [search, setSearch] = useState("");
+  const val=useRef();
+  function searchDoc(search){
+setSearch(search.target.value);
+
+  }
   return (
     <>
     <div className="my-10 mx-16 outer-doc">
@@ -14,10 +19,10 @@ function AllDoctors() {
         Search <span className="spec">by specialist</span> {" "}
          </h1>
        
-        <input
-          onChange={() => {}}
+        <input value={search}
+         
           type="text"
-          className="inline-block search-doctor border border-gray-400 ml-2 font-normal text-sm px-2 py-1 placeholder:text-sm text-gray-200 w-70"
+          className="inline-block search-inp border border-gray-400 ml-2 font-normal text-sm px-2 py-1 placeholder:text-sm text-gray-200 w-70"
           placeholder="cardiologist, dermatologist"
         />
         </div>
@@ -40,6 +45,7 @@ function AllDoctors() {
             className="dr-card w-50 relative shadow-md rounded-lg overflow-hidden mt-4"
           >
             <img
+            
             loading="lazy"
               src={doc.image}
               alt={doc.name}
@@ -55,7 +61,7 @@ function AllDoctors() {
             <div className="p-3 dr-info">
               <h3 className="font-semibold dr-name text-green-600">{doc.name}</h3>
 
-              <h4 className="text-gray-700 speciality">{doc.specialty}</h4>
+              <h4 ref={val} className="text-gray-700 speciality">{doc.specialty}</h4>
 
               <p className="text-gray-400 text-sm dr-exp">
                 {doc.experience}+ years experience

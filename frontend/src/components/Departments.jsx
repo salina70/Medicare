@@ -23,7 +23,7 @@ function Departments() {
   return (
     <>
       <div className="mb-18 mt-10">
-        <h2 className="text-center text-3xl font-semibold">Our Departments</h2>
+        <h2 className="dept-h2 text-center text-3xl font-semibold">Our Departments</h2>
         <p className="dept-para text-center text-gray-400">
           Browse doctors according to the department and get an appointment
         </p>
@@ -35,7 +35,7 @@ function Departments() {
                 className="department border gap-4 pointer border-green-400 rounded-xl flex flex-col w-40 h-auto p-4 justify-center items-center"
                 key={ind}
               >
-                <i className={`${dept.icon} text-green-600`}> </i>
+                <i className={`${dept.icon} text-green-600 dept-icon`}> </i>
                 <p className="dept-name">{dept.name}</p>
               </div>
             );

@@ -2,10 +2,3 @@ node_modules/
 dist/
 build/
 .env
-
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
-*.webp

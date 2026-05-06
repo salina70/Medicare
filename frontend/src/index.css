@@ -79,9 +79,11 @@ body {
     width: 100vw;
     margin-bottom: .5rem;
     margin-top: .3rem;
+    padding: 1rem 0 1rem 0;
   }
   .logo{
     font-size: 18px;
+    margin-left: 1.6rem;
   }
   .search{
   display: none;
@@ -115,10 +117,11 @@ body{
     display: flex;
         flex-wrap: wrap;
         gap: 4px;
+        padding-bottom: 2rem;
 
 
   }
-  
+ 
   .works-div{
     margin: 2rem 0 0 0;
     display: flex;
@@ -141,8 +144,17 @@ body{
     flex-direction: column-reverse;
     
   }
+  .sym{
+    overflow-x: scroll;
+padding-left: .8rem;
+    scrollbar-width: none;
+  }
+  .sym span{
+    font-size: 10px;
+  }
   .top-doc{
     width: 100%;
+    margin-top: 2rem;
     padding: 0px 1rem 0px 1rem;
   }
   .doc-div{
@@ -157,18 +169,24 @@ body{
     height: auto;
 
   }
+  .top-doctors{
+    font-size: 22px;
+  }
   .outer-doc-div{
     display: flex;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    gap: 14px;
+    padding-left: .7rem;
+        padding-right: .7rem;
+    gap: 22px;
     overflow-x: scroll;
+            margin: 0 .4rem 0 .4rem;
+            scrollbar-width: none;
 
   }
   .works-div-inner{
-    width: 9rem;
+    width: 11rem;
     height: fit-content;
-    margin: 1rem;
   }
   .works-div-inner p{
     font-size: 10px;
@@ -193,7 +211,7 @@ body{
     font-size: 14px;
   }
   .view-doc-btn{
-    padding: 0 4px 0 4px;
+    padding: 0 6px 0 6px;
   }
   .consult-btn{
     padding: 1px 2px 1px 2px;
@@ -204,17 +222,25 @@ body{
   }
   .department{
     margin: 1px;
-    width: 9rem;
-    padding: .5rem;
+    width: 19rem;
     font-size: 12px;
+    height: 6rem;
   }
+.dept-icon{
+  font-size: 1.5rem;
+}
   .dept-para{
     font-size: 12px;
   }
   .dept-div{
     width: 100%;
-    gap: 12px;
+    gap: 19px;
     margin-top: 2rem;
+    flex-wrap: nowrap;
+    padding: 0 1rem 0 1rem;
+    overflow-x: scroll;
+    justify-content: flex-start;
+    scrollbar-width: none;
   }
   .dept-name{
     font-size: 13px;
@@ -239,7 +265,7 @@ flex-wrap: nowrap;
 .sort{
   margin-right: 1rem;
   font-size: 10px;
-  width: 5.1rem;
+  width: 8rem;
   padding: 1px 2px 1px 2px;
 
 }
@@ -247,10 +273,7 @@ flex-wrap: nowrap;
   font-size: small;
   width: 10rem;
 }
-.spec{
-display: none;
 
-}
 .dr-card{
   width: 11rem;
   font-size: 12px;
@@ -273,6 +296,12 @@ justify-content:space-between;
 .dr-exp{
   font-size: 12px;
 }
+.dept-h2{
+  font-size: 22px;
+}
+.foo i{
+  font-size: 1.4rem;
+}
 }
 
 input:-webkit-autofill,
@@ -285,3 +314,17 @@ input:-webkit-autofill:focus {
 .opt option{
   color: black;
 }
+
+@media (max-width:1024){
+  .outer-doc-div{
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    
+    flex-wrap: wrap;
+  }
+  .dr-card{
+    margin-right: .5rem;
+  }
+}
+

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Header from "./Header";
 import { useParams } from "react-router-dom";
 import { doctors } from "../data/doctor";
-import "../main";
 
 function DoctorProfile() {
   const [saved, setSaved] = useState(false);
