@@ -1,54 +1,28 @@
-import User from "../models/User.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+// import usermodel from "../models/user";
 
-// REGISTER
-export const registerUser = async (req, res) => {
+import createHttpError from "http-errors";
+import { loginSchema } from "../utils/schema/auth.schema.js";
+import  { db } from "../config/db.js";
+
+export async function registerUser(req, res) {
+  const { email, password } = req.body;
+
+  res.send({ email, password });
+}
+export async function loginUser(req, res, next) {
   try {
-    const { name, email, password } = req.body;
-
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: "User already exists" });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
+    const validationData = await loginSchema.validate(req.body, {
+      abortEarly: false,
     });
 
-    res.status(201).json({ message: "User registered successfully" });
+    const users = await db.collection('users')
+
+    res.send(users);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
-};
+}
 
-// LOGIN
-export const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "User not found" });
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.json({
-      message: "Login successful",
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+export async function doctor(req, ress) {
+  res.send("doctor");
+}

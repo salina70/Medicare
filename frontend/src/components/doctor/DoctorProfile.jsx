@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Header from "./Header";
 import { useParams } from "react-router-dom";
-import { doctors } from "../data/doctor";
+import {doctors} from "../../data/doctor"
 
 function DoctorProfile() {
   const [saved, setSaved] = useState(false);
@@ -16,7 +15,7 @@ function DoctorProfile() {
           {doctor.name} -{" "}
           <span className="text-gray-500 text-2xl"> {doctor.specialty}</span>{" "}
           <p className="text-xl mt-2 text-gray-500">
-            <i class="fa-regular fa-star"></i>No reviews yet
+            <i className="fa-regular fa-star"></i>No reviews yet
           </p>
         </h2>
         <div className="flex gap-6">
@@ -30,7 +29,7 @@ function DoctorProfile() {
                 />
                 <div className="absolute top-1 right-1">
                   <i
-                    class={`fas fa-heart text-gray-600 text-xl hover:text-red-500 ${saved ? "text-red-600" : "text-gray-500"} `}
+                    className={`fas fa-heart text-gray-600 text-xl hover:text-red-500 ${saved ? "text-red-600" : "text-gray-500"} `}
                     onClick={() => {
                       setSaved(!saved);
                       alert(

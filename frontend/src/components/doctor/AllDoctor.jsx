@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { doctors } from "../data/doctor";
+import { doctors } from "../../data/doctor";
 
-function AllDoctors() {
+function AllDoctor() {
   const [search, setSearch] = useState("");
   const val=useRef();
   function searchDoc(search){
@@ -29,8 +29,8 @@ setSearch(search.target.value);
         <div className="opt">
         <select className="sort border border-gray-300 rounded-md px-2 py-2 text-xs focus:outline-none focus:border-green-500">
           <option value="">Sort By</option>
-          <option>Experience (High → Low)</option>
-          <option>Rating (High → Low)</option>
+          <option value="experience">Experience (High → Low)</option>
+          <option >Rating (High → Low)</option>
           <option>Fee (Low → High)</option>
           <option>Fee (High → Low)</option>
         </select>
@@ -79,4 +79,4 @@ setSearch(search.target.value);
   );
 }
 
-export default AllDoctors;
+export default AllDoctor;

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "../index.css";
 import { useRef } from "react";
 
-function Header() {
+function AppHeader() {
   const closeModal = useRef(null);
   const [open, setOpen] = useState(false);
   const [signin, setSignin] = useState(false);
@@ -130,8 +129,8 @@ const loginModal = ()=>{
                 "Create an account"
               ) : (
                 <>
-                  {" "}
-                  Login to <span className="text-green-600">Medicare</span>{" "}
+                  
+                  Login to <span className="text-green-600">Medicare</span>
                 </>
               )}
             </h1>
@@ -142,38 +141,33 @@ const loginModal = ()=>{
             </div>
 
             <form action="" className="flex flex-col gap-2 mt-8 w-70">
-
+<label htmlFor="email">Email</label>
               <input
                 className=" border-1 rounded-sm px-2 text-base py-2"
                 type="text"
                 placeholder="Enter Email"
                 id="email"
               />
+              <label htmlFor="pass">Password:</label>
               <input
                 className=" border-1  rounded-sm px-2 text-base py-2"
-                type="text"
+                type="password"
                 placeholder="Enter Password"
                 id="pass"
               />
               
-{loggedin ? (
-
-  <>
-  <input type="text" placeholder="Retype Password" className="border-1 rounded-sm px-2 text-base py-2" id="cpass" />
-  </>
-):""
-}
+{loggedin && <input type="text" placeholder="Retype Password" className="border-1 rounded-sm px-2 text-base py-2" id="cpass" />}
               <button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800 text-white font-semibold mt-4 py-1.5 rounded-sm"
               >
-                {loggedin ? "Sign up" : "Log in"}{" "}
+                {loggedin ? "Sign up" : "Log in"}
               </button>
              
 <p className="text-center text-sm">
   {loggedin ? (
     <>
-      Already have an account?{" "}
+      Already have an account?
       <span
         className="text-red-500 cursor-pointer hover:text-red-600"
         onClick={() => setLoggedin(false)}
@@ -183,7 +177,7 @@ const loginModal = ()=>{
     </>
   ) : (
     <>
-      New to account?{" "}
+      New to account?
       <span
         className="text-red-500 cursor-pointer hover:text-red-600"
         onClick={() => setLoggedin(true)}
@@ -202,4 +196,4 @@ const loginModal = ()=>{
   );
 }
 
-export default Header;
+export default AppHeader;

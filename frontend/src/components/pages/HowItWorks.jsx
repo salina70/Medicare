@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Howitworks() {
+function HowItWorks() {
   return (
     <div className="works-div bg-gray-950 w-full pb-16 mb-12 mt-20 text-white">
 
@@ -52,4 +52,4 @@ function Howitworks() {
   )
 }
 
-export default Howitworks
+export default HowItWorks;

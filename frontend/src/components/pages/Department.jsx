@@ -1,6 +1,6 @@
 import React from "react";
 
-function Departments() {
+function Department() {
   const departments = [
     { name: "Cardiology", icon: "fa-solid fa-heart-pulse" },
     { name: "Neurology", icon: "fa-solid fa-brain" },
@@ -46,4 +46,4 @@ function Departments() {
   );
 }
 
-export default Departments;
+export default Department;

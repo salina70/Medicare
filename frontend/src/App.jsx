@@ -1,30 +1,25 @@
 import React from "react";
-import Header from "./components/Header";
-import Symptoms from "./components/Symptoms";
-import Heropage from "./components/Heropage";
-import Departments from "./components/Departments";
-import Howitworks from "./components/Howitworks";
-import Doctor from "./components/Doctor";
-import Footer from "./components/Footer";
-import DoctorProfile from "./components/DoctorProfile";
-import FooterFixed from "./components/FooterFixed";
-
+import Heropage from "./components/pages/Heropage";
+import Doctor from "./components/doctor/Doctor";
+import DoctorProfile from "./components/doctor/DoctorProfile";
+import AppHeader from "./components/common/AppHeader";
+import AppFooter from "./components/common/AppFooter";
+import HowItWorks from "./components/pages/Howitworks";
+import Symptom from "./components/pages/Symptom";
+import Department from "./components/pages/Department";
 
 function App() {
   return (
     <>
-<Header/>
-<Symptoms/>
-<Heropage/>
-<Doctor/>
-<Departments/>
-<Howitworks/>
-<Footer/>
-<FooterFixed />
-
-
+      <AppHeader />
+      <Symptom />
+      <Heropage />
+      <Doctor />
+      <Department />
+      <HowItWorks />
+      <AppFooter />
     </>
-  )
+  );
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Department from "./Departments";
+import Department from "./Department";
 
 function Heropage() {
   const [open, setOpen] = useState(false);

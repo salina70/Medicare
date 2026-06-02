@@ -74,55 +74,53 @@ body {
   justify-content: center;
 }
 
-@media (max-width:480px) {
-  #navbar{
+@media (max-width: 480px) {
+  #navbar {
     width: 100vw;
-    margin-bottom: .5rem;
-    margin-top: .3rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
     padding: 1rem 0 1rem 0;
   }
-  .logo{
+  .logo {
     font-size: 18px;
     margin-left: 1.6rem;
   }
-  .search{
-  display: none;
+  .search {
+    display: none;
   }
-  .hero{
+  .hero {
     width: 100vw;
     display: flex;
     flex-wrap: wrap;
   }
-body{
-  padding: 0;
-  margin-left: .4rem;
-  margin-right: .4rem;
-}
-  html,body{
-    width:100%;
+  body {
+    padding: 0;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
   }
-  .be-a-doc{
+  html,
+  body {
+    width: 100%;
+  }
+  .be-a-doc {
     display: none;
   }
-  .sign-in{
+  .sign-in {
     display: flex;
     padding: 4px;
     font-size: 15px;
     position: absolute;
     right: 12px;
-
   }
-  .how-it-works{
+  .how-it-works {
     width: 100vw;
     display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-        padding-bottom: 2rem;
-
-
+    flex-wrap: wrap;
+    gap: 4px;
+    padding-bottom: 2rem;
   }
- 
-  .works-div{
+
+  .works-div {
     margin: 2rem 0 0 0;
     display: flex;
     width: 100%;
@@ -131,108 +129,105 @@ body{
     align-items: center;
     flex-direction: column;
   }
-  .works-div h3{
+  .works-div h3 {
     margin-top: 2rem;
   }
-  .symptoms{
+  .symptoms {
     width: 100vw;
-    margin-top: .2rem;
+    margin-top: 0.2rem;
   }
-  .hero{
+  .hero {
     margin-top: 6.9rem;
     margin-bottom: 0rem;
     flex-direction: column-reverse;
-    
   }
-  .sym{
+  .sym {
     overflow-x: scroll;
-padding-left: .8rem;
+    padding-left: 0.8rem;
     scrollbar-width: none;
   }
-  .sym span{
+  .sym span {
     font-size: 10px;
   }
-  .top-doc{
+  .top-doc {
     width: 100%;
     margin-top: 2rem;
     padding: 0px 1rem 0px 1rem;
   }
-  .doc-div{
+  .doc-div {
     margin: 0;
     margin-top: 0;
     width: 100%;
     overflow: hidden;
-   justify-content: flex-start;
+    justify-content: flex-start;
   }
-  .dr-card{
+  .dr-card {
     width: 18rem;
     height: auto;
-
   }
-  .top-doctors{
+  .top-doctors {
     font-size: 22px;
   }
-  .outer-doc-div{
+  .outer-doc-div {
     display: flex;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    padding-left: .7rem;
-        padding-right: .7rem;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
     gap: 22px;
     overflow-x: scroll;
-            margin: 0 .4rem 0 .4rem;
-            scrollbar-width: none;
-
+    margin: 0 0.4rem 0 0.4rem;
+    scrollbar-width: none;
   }
-  .works-div-inner{
+  .works-div-inner {
     width: 11rem;
     height: fit-content;
   }
-  .works-div-inner p{
+  .works-div-inner p {
     font-size: 10px;
   }
-  .works-div-inner h4{
+  .works-div-inner h4 {
     font-size: 14px;
   }
-  *{
+  * {
     font-size: 16px;
   }
-  .works-div h3{
+  .works-div h3 {
     margin-top: 0;
   }
-  .anytime{
+  .anytime {
     font-size: 38px;
   }
-  .consult-text{
+  .consult-text {
     font-size: 13px;
   }
-  .btn{
+  .btn {
     width: 9rem;
     font-size: 14px;
   }
-  .view-doc-btn{
+  .view-doc-btn {
     padding: 0 6px 0 6px;
   }
-  .consult-btn{
+  .consult-btn {
     padding: 1px 2px 1px 2px;
     font-size: 14px;
   }
-  .right-arrow{
+  .right-arrow {
     display: none;
   }
-  .department{
+  .department {
     margin: 1px;
     width: 19rem;
     font-size: 12px;
     height: 6rem;
   }
-.dept-icon{
-  font-size: 1.5rem;
-}
-  .dept-para{
+  .dept-icon {
+    font-size: 1.5rem;
+  }
+  .dept-para {
     font-size: 12px;
   }
-  .dept-div{
+  .dept-div {
     width: 100%;
     gap: 19px;
     margin-top: 2rem;
@@ -242,66 +237,65 @@ padding-left: .8rem;
     justify-content: flex-start;
     scrollbar-width: none;
   }
-  .dept-name{
+  .dept-name {
     font-size: 13px;
   }
-  .footer{
-flex-wrap: nowrap;
+  .footer {
+    flex-wrap: nowrap;
     gap: 1rem;
     padding: 0px;
   }
-  .left-footer{
+  .left-footer {
     display: none;
   }
-  .book-app-text{
+  .book-app-text {
     font-size: 24px;
     text-align: center;
   }
-.inner-hero{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.sort{
-  margin-right: 1rem;
-  font-size: 10px;
-  width: 8rem;
-  padding: 1px 2px 1px 2px;
+  .inner-hero {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .sort {
+    margin-right: 1rem;
+    font-size: 10px;
+    width: 8rem;
+    padding: 1px 2px 1px 2px;
+  }
+  .search-doctor {
+    font-size: small;
+    width: 10rem;
+  }
 
-}
-.search-doctor{
-  font-size: small;
-  width: 10rem;
-}
+  .dr-card {
+    width: 11rem;
+    font-size: 12px;
+  }
+  .alldoc-div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .outer-doc {
+    margin: 1rem 0.4rem 1rem 0.4rem;
+  }
+  .speciality {
+    font-size: 13px;
+  }
 
-.dr-card{
-  width: 11rem;
-  font-size: 12px;
-}
-.alldoc-div{
-display: flex;
-justify-content:space-between;
-}
-.outer-doc{
-  margin: 1rem .4rem 1rem .4rem;
-}
-.speciality{
-  font-size: 13px;
-}
+  .dr-name {
+    font-size: 15px;
+  }
 
-.dr-name{
-  font-size: 15px;
-}
-
-.dr-exp{
-  font-size: 12px;
-}
-.dept-h2{
-  font-size: 22px;
-}
-.foo i{
-  font-size: 1.4rem;
-}
+  .dr-exp {
+    font-size: 12px;
+  }
+  .dept-h2 {
+    font-size: 22px;
+  }
+  .foo i {
+    font-size: 1.4rem;
+  }
 }
 
 input:-webkit-autofill,
@@ -311,20 +305,19 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: white !important;
   transition: background-color 9999s ease-in-out 0s;
 }
-.opt option{
+.opt option {
   color: black;
 }
 
-@media (max-width:1024){
-  .outer-doc-div{
+@media (max-width: 1024) {
+  .outer-doc-div {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    
+
     flex-wrap: wrap;
   }
-  .dr-card{
-    margin-right: .5rem;
+  .dr-card {
+    margin-right: 0.5rem;
   }
 }
-

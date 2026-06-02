@@ -5,21 +5,25 @@ import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/authRoutes.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth/", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("API running...");
 });
 
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.get("/doctor", (req, res)=>{
+  res.send("doctor req");
+})
+
+app.listen(PORT, async () => {
+  await connectDB();
   console.log(`Server running on port ${PORT}`);
 });

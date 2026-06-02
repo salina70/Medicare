@@ -1,6 +1,6 @@
 import React from "react";
 
-function Footer() {
+function AppFooter() {
   return (
     <footer className="footer" style={styles.footer}>
       <div style={styles.container}>
@@ -89,4 +89,4 @@ const styles = {
   },
 };
 
-export default Footer;
+export default AppFooter;

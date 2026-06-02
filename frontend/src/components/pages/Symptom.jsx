@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-function Symptoms() {
+function Symptom() {
   const [showLeft, setshowLeft] = useState(true);
   const [hideRight, sethideRight] = useState(false);
   const scrollRef = useRef();
@@ -111,4 +111,4 @@ function Symptoms() {
   );
 }
 
-export default Symptoms;
+export default Symptom;
