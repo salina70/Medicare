@@ -4,7 +4,7 @@ import {doctors} from "../../data/doctor"
 
 function DoctorProfile() {
   const [saved, setSaved] = useState(false);
-  const [consult, setConsult] = useState(false);
+
   let { id } = useParams();
   const doctor = doctors.find((doc) => doc.id === Number(id));
 

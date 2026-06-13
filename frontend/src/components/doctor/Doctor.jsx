@@ -101,14 +101,14 @@ function Doctor() {
       image: "../images/dr11.jpg",
     },
   ];
-  const [open, setopen] = useState(false);
+
 
   return (
     <>
       <div className="doc-div my-18 mx-16">
-        <div className="top-doc flex justify-between">
+        <div className="top-doc flex justify-between mb-8">
           <h2 className="text-3xl top-doctors">Top Doctors</h2>
-          <Link to="/all-doctors">
+          <Link to="/all-doctors" className="mr-14">
             <button className="view-doc-btn border border-green-500 text-green-600 px-2 py-1 rounded-md cursor-pointer hover:text-white transition">
               view all
             </button>

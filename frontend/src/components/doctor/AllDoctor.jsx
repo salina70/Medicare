@@ -4,10 +4,7 @@ import { doctors } from "../../data/doctor";
 function AllDoctor() {
   const [search, setSearch] = useState("");
   const val=useRef();
-  function searchDoc(search){
-setSearch(search.target.value);
 
-  }
   return (
     <>
     <div className="my-10 mx-16 outer-doc">

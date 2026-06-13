@@ -22,7 +22,7 @@ function Department() {
   ];
   return (
     <>
-      <div className="mb-18 mt-10">
+      <div className="mb-18 mt-10 mx-4">
         <h2 className="dept-h2 text-center text-3xl font-semibold">Our Departments</h2>
         <p className="dept-para text-center text-gray-400">
           Browse doctors according to the department and get an appointment

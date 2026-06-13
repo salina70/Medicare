@@ -50,7 +50,7 @@ function Heropage() {
 
   return (
     <>
-      <div className="hero flex mt-29 mb-18 gap-10">
+      <div className="hero flex mt-29 ml-12 mb-18 gap-10">
         <div className="inner-hero">
           <h1 className="book-app-text text-4xl">
             Book your appointment
@@ -60,35 +60,41 @@ function Heropage() {
           </h1>
 
           <p className="consult-text text-xs text-gray-500 mt-4">
-            consult with doctors in video call and get your health checkup quickly
+            consult with doctors in video call and get your health checkup
+            quickly
           </p>
-<div className="btn-div">
-          <button
-            onClick={() => setOpen(true)}
-            className="btn book-app-btn my-7 transition bg-green-500 hover:bg-green-600 text-black font-semibold mt-4"
-          >
-            Book Appointment
-          </button>
+          <div className="btn-div">
+            <button
+              onClick={() => setOpen(true)}
+              className="btn book-app-btn my-7 transition bg-green-500 hover:bg-green-600 text-black font-semibold mt-4"
+            >
+              Book Appointment
+            </button>
 
-        
-            <button onClick={()=>{setshowDept(!showDept);}} className="view-dept-btn btn my-7 transition duration-300 border-2 border-green-600 ml-4">
+            <button
+              onClick={() => {
+                setshowDept(!showDept);
+              }}
+              className="view-dept-btn btn my-7 transition duration-300 border-2 border-green-600 ml-4"
+            >
               View Departments
             </button>
-       </div> 
+          </div>
         </div>
 
         <div>
-          <img className="hero-img w-[30rem] -mt-25" src="../images/doctor.png" alt="" loading="lazy" />
+          <img
+            className="hero-img w-[30rem] -mt-25"
+            src="../images/doctor.png"
+            alt=""
+            loading="lazy"
+          />
         </div>
       </div>
-
-
-
 
       {open && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-gray-800 p-6 rounded-xl w-[90%] max-w-md shadow-lg relative">
-
             <button
               onClick={() => setOpen(false)}
               className="absolute top-2 hover:bg-gray-600 rounded-full h-5 w-5 right-3 text-xs text-white"
@@ -99,7 +105,6 @@ function Heropage() {
             <h2 className="text-2xl font-bold mb-4">Book Appointment</h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-
               <input
                 type="text"
                 name="name"
@@ -145,12 +150,10 @@ function Heropage() {
               >
                 Submit
               </button>
-
             </form>
           </div>
         </div>
       )}
-
     </>
   );
 }

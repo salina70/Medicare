@@ -52,9 +52,7 @@
   }
 }
 
-body {
-  margin: 0 3rem 0 3rem;
-}
+
 
 .pointer {
   cursor: pointer;
@@ -93,11 +91,7 @@ body {
     display: flex;
     flex-wrap: wrap;
   }
-  body {
-    padding: 0;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
-  }
+ 
   html,
   body {
     width: 100%;
@@ -320,4 +314,12 @@ input:-webkit-autofill:focus {
   .dr-card {
     margin-right: 0.5rem;
   }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.h-screen{
+  width: 82vw;
 }
