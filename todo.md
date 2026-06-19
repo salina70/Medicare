@@ -27,3 +27,6 @@ in UI
 [ ] redirct to dashboard or any other page
 
 redis
+
+### mailtrap token
+4b2b5fdd124de36c78133b8645a2c9ea

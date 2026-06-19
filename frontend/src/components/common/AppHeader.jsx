@@ -1,8 +1,10 @@
 import { useAxios } from "../../lib/provider/axios";
 import React, { useState } from "react";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../slice/authSlice";
 
 function AppHeader() {
   const [loading, setLoading] = useState(false);
@@ -17,6 +19,10 @@ function AppHeader() {
   const [loggedin, setLoggedin] = useState(false);
 
   const { axios } = useAxios();
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
 
   // const [docForm, setdocForm] = useState(false)
 
@@ -89,7 +95,6 @@ function AppHeader() {
     setOpen(false);
     doctorModal.current.style.display = "none";
   };
-
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
 
@@ -98,8 +103,6 @@ function AppHeader() {
   //     [name]: value,
   //   }));
   // };
-
-
 
   return (
     <>
@@ -119,24 +122,44 @@ function AppHeader() {
             className="border pl-2.5 border-gray-400 rounded-2xl pr-10 pr-4 py-1.5 w-full focus:outline-none focus:border-green-500"
             placeholder="fever, cold, headache"
           />
-
         </div>
 
         {/* Right buttons */}
         <div className="flex items-center">
-      
-
-          <div
-          
-            onClick={() => {
-              navigate("/login");
-
-            }}
-            className="sign-in rounded-md px-4 py-1.5 text-sm bg-green-500 font-semibold text-black hover:bg-green-600 cursor-default"
-          >
-            <i className="fa-solid fa-user mr-1"></i>
-            Sign in
-          </div>
+          {user ? (
+            <div className="flex gap-4">
+              <div
+                onClick={() => {
+                  dispatch(logout());
+                  alert("You have successfully logout");
+                  navigate("/");
+                }}
+                className="sign-in rounded-md px-4 py-1.5 text-sm bg-red-500 font-semibold text-black hover:bg-red-600 cursor-pointer"
+              >
+                <i className="fa-solid fa-right-from-bracket mr-1"></i>
+                Logout
+              </div>
+              <Link
+                to={
+                  user.isAdmin === true
+                    ? "/dashboard/admin"
+                    : "/dashboard/users"
+                }
+                className="sign-in rounded-md px-4 py-1.5 text-sm bg-red-500 font-semibold text-black hover:bg-red-600 cursor-pointer"
+              >
+                <i className="fa-solid fa-right-from-bracket mr-1"></i>
+                Dashboard
+              </Link>
+            </div>
+          ) : (
+            <div
+              onClick={() => navigate("/login")}
+              className="sign-in rounded-md px-4 py-1.5 text-sm bg-green-500 font-semibold text-black hover:bg-green-600 cursor-pointer"
+            >
+              <i className="fa-solid fa-user mr-1"></i>
+              Sign in
+            </div>
+          )}
         </div>
       </div>
 
@@ -312,8 +335,6 @@ function AppHeader() {
           </div>
         </div>
       )} */}
-
-
     </>
   );
 }

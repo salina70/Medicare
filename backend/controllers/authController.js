@@ -58,7 +58,7 @@ export const loginUser = async (req, res, next) => {
 
     if (!existedUser)
       return res.json({
-        status: false,
+        status: "failure",
         message: "user not existed",
       });
 
@@ -76,6 +76,13 @@ export const loginUser = async (req, res, next) => {
       { expiresIn: "7d" },
     );
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // set true in production (HTTPS)
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+console.log("Cookie set");
     return res.status(200).json({
       status: "success",
       message: "user logged in",
@@ -84,9 +91,26 @@ export const loginUser = async (req, res, next) => {
         id: existedUser._id,
         name: existedUser.name,
         email: existedUser.email,
+        isAdmin:existedUser.isAdmin
       },
     });
+
   } catch (error) {
     next(error);
   }
+};
+export const logoutUser = (req, res) => {
+  console.log("this is logout")
+  console.log(req.cookies);
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false, // set true in production (HTTPS)
+    sameSite: "lax",
+  });
+
+  return res.status(200).json({
+    
+    status: "success",
+    message: "Logged out successfully",
+  });
 };

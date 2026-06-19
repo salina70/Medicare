@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Doctor() {
+  const nav = useNavigate();
   const doctors = [
     {
       id: 1,
@@ -102,17 +104,20 @@ function Doctor() {
     },
   ];
 
+  const user = useSelector((state) => state.auth.uuser);
 
   return (
     <>
       <div className="doc-div my-18 mx-16">
         <div className="top-doc flex justify-between mb-8">
           <h2 className="text-3xl top-doctors">Top Doctors</h2>
-          <Link to="/all-doctors" className="mr-14">
-            <button className="view-doc-btn border border-green-500 text-green-600 px-2 py-1 rounded-md cursor-pointer hover:text-white transition">
-              view all
-            </button>
-          </Link>
+
+          <button
+            onClick={() => nav("/all-doctors")}
+            className="view-doc-btn border border-green-500 text-green-600 px-2 py-1 rounded-md cursor-pointer hover:text-white transition"
+          >
+            view all
+          </button>
         </div>
 
         <div className="outer-doc-div grid grid-cols-4">
@@ -145,7 +150,16 @@ function Doctor() {
                 </p>
                 <button
                   onClick={() => {
-                    alert("Feature is in progress");
+                    if (!user) {
+                      const shouldLogin = confirm(
+                        "Please login first. Go to login page?",
+                      );
+
+                      if (shouldLogin) {
+                        nav("/login");
+                      }
+                    } else {
+                    }
                   }}
                   className="consult-btn mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition"
                 >

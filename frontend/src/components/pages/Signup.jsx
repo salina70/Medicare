@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router";
+import axios from 'axios';
 
 function Signup() {
+  const [loading, setloading] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 const navigate = useNavigate();
@@ -22,18 +24,33 @@ const navigate = useNavigate();
     }));
   };
 
-  const handleSignup = (e) => {
-    e.preventDefault();
+ const handleSignup = async (e) => {
+  e.preventDefault();
+setloading(true);
+  if (formData.password !== formData.repassword) {
+    alert("Passwords do not match");
+    return;
+  }
 
-    if (formData.password !== formData.repassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    
-    console.log(formData);
-    alert("you have created new account. Now Log in!")
-    navigate("/login")
-  };
+  try {
+    const res = await axios.post(
+      "http://localhost:8000/api/auth/register",
+      formData
+    );
+  alert("Account is created. Please log in")
+
+    console.log(res.data);
+
+    navigate("/login");
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Something went wrong"
+    );
+  }
+};
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-900">
@@ -107,8 +124,19 @@ const navigate = useNavigate();
           </button>
         </div>
 
-        <button type="submit" className="w-full mt-4 bg-green-600 py-2 rounded">
-          Sign Up
+        <button 
+        disabled={loading} 
+        type="submit" className="w-full mt-4 bg-green-600 py-2 rounded">
+  {loading ? (
+    <>
+      <div
+      
+      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      Account is creating...
+    </>
+  ) : (
+    "Signup"
+  )}
         </button>
         <p className="mt-3 text-center">Already have an account? <span className="text-red-500 cursor-default" onClick={
           ()=>navigate("/login")

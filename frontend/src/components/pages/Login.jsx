@@ -1,34 +1,30 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useAxios } from "../../lib/provider/axios";
-import { useNavigate } from "react-router-dom";
-
+import { Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../slice/authSlice";
+import { useSelector } from "react-redux";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
-  const LoginValidation = (req, res, next) =>{
-    try{
-      const {email, password } = req.body;
-      if(!email && !password){
-        res.status(400).json({
-          status:"failure",
-          message:"email and password are required"
-        })
-      }
-    }catch(error){
-      next(error);
-    }
+  if (user) {
+    navigate("/dashboard/admin");
   }
 
-  const handleChange =  (e) => {
-
+  const handleChange = (e) => {
     const { name, value } = e.target;
-
 
     setFormData((prev) => ({
       ...prev,
@@ -37,22 +33,35 @@ function Login() {
   };
 
   const { axios } = useAxios();
-  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      const res = await axios.post("/auth/login", formData);
+      const res = await axios.post("/auth/login", formData, {
+        withCredentials: true,
+      });
+      toast.success("Login successful 🚀");
 
       console.log("Login success:", res.data);
+      dispatch(loginUser(res.data.user));
 
       // Example: save token
-      localStorage.setItem("token", res.data.token);
-
+      localStorage.setItem("token", JSON.stringify(res.data));
+      let isAdmin =
+        typeof res.data.user.isAdmin === "string"
+          ? res.data.user.isAdmin === "true"
+            ? true
+            : false
+          : res.data.user.isAdmin;
       // redirect after login
-      navigate("/user-dashboard");
+      return isAdmin
+        ? navigate("/dashboard/admin")
+        : navigate("/dashboard/users");
     } catch (error) {
+      setLoading(false);
+      toast.error(error.response?.data?.message || "login failed");
       console.log("Login error:", error.response?.data || error.message);
     }
   };
@@ -90,13 +99,28 @@ function Login() {
           </button>
         </div>
 
-        <button onClick={()=>{
-          LoginValidation();
-        }} className="w-full mt-4 bg-green-600 py-2 rounded">Login</button>
-            <p className="text-center mt-3">New to account? <span className="text-red-500 cursor-default" onClick={
-              ()=>navigate("/signup")
-            }>Signup</span> </p>
-
+        <button
+          disabled={loading}
+          className="w-full mt-4 bg-green-600 py-2 rounded"
+        >
+          {loading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              Logging in...
+            </>
+          ) : (
+            "Login"
+          )}
+        </button>
+        <p className="text-center mt-3">
+          New to account?{" "}
+          <span
+            className="text-red-500 cursor-default"
+            onClick={() => navigate("/signup")}
+          >
+            Signup
+          </span>{" "}
+        </p>
       </form>
     </div>
   );

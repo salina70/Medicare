@@ -29,12 +29,15 @@ export default function AddDoctor() {
 
     if (!result.success) {
       const fieldErrors = {};
-      result.error.errors.forEach((err) => {
-        fieldErrors[err.path[0]] = err.message;
-      });
+      try {
+        ((result.error || {}).errors || []).forEach((err) => {
+          fieldErrors[err.path[0]] = err.message;
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       setErrors(fieldErrors);
-      return;
     }
 
     setErrors({});
@@ -103,13 +106,15 @@ export default function AddDoctor() {
               onChange={handleChange}
               className="w-full border p-3 rounded"
             >
-              <option value="" className="text-white bg-gray-700">Select Specialty</option>
-               <option className="bg-gray-700 text-white">Cardiology</option>
-  <option className="bg-gray-700 text-white">Neurology</option>
-  <option className="bg-gray-700 text-white">Dermatology</option>
-  <option className="bg-gray-700 text-white">Opthalmology</option>
-  <option className="bg-gray-700 text-white">Pediatrics</option>
-  <option className="bg-gray-700 text-white">Orthopedics</option>
+              <option value="" className="text-white bg-gray-700">
+                Select Specialty
+              </option>
+              <option className="bg-gray-700 text-white">Cardiology</option>
+              <option className="bg-gray-700 text-white">Neurology</option>
+              <option className="bg-gray-700 text-white">Dermatology</option>
+              <option className="bg-gray-700 text-white">Opthalmology</option>
+              <option className="bg-gray-700 text-white">Pediatrics</option>
+              <option className="bg-gray-700 text-white">Orthopedics</option>
             </select>
             {errors.specialty && (
               <p className="text-red-500 text-sm">{errors.specialty}</p>

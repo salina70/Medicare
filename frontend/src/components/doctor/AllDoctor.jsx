@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
 import { doctors } from "../../data/doctor";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function AllDoctor() {
   const [search, setSearch] = useState("");
   const val=useRef();
+const nav = useNavigate();
+const user = useSelector((state)=>state.auth.user)
 
   return (
     <>
@@ -64,7 +68,10 @@ function AllDoctor() {
                 {doc.experience}+ years experience
               </p>
 
-              <button className="mt-2 w-full border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
+              <button onClick={()=>{if(!user){
+                confirm("Please log in!!")
+                nav("/login")
+              }}} className="mt-2 w-full border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
                 Consult Now
               </button>
             </div>

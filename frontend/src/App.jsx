@@ -8,9 +8,11 @@ import HowItWorks from "./components/pages/Howitworks";
 import Symptom from "./components/pages/Symptom";
 import Department from "./components/pages/Department";
 
+
 function App() {
   return (
     <>
+
       <AppHeader />
       <Symptom />
       <Heropage />
