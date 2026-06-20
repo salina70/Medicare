@@ -20,11 +20,8 @@ import { PatientDashboard } from "./components/patient/PatientDashboard.jsx";
 import { store } from "./redux/store.js";
 import AllDoctor from "./components/doctor/AllDoctor.jsx";
 import GetData from "./components/pages/GetData.jsx";
-<<<<<<< HEAD
-=======
 import AdminLayout from "./components/admin/AdminLayout.jsx";
 import AdminDoctors from "./components/admin/AdminDoctors.jsx";
->>>>>>> 6db22a39d92bd30f3a66baa69edfd027054a8058
 import Appointments from "./components/admin/Appointments.jsx";
 
 createRoot(document.getElementById("root")).render(
