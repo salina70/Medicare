@@ -1,13 +1,44 @@
-import React, { useRef, useState } from "react";
-import { doctors } from "../../data/doctor";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { doctors as fallbackDoctors } from "../../data/doctor";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useAxios } from "../../lib/provider/axios";
 
 function AllDoctor() {
   const [search, setSearch] = useState("");
+  const [doctors, setDoctors] = useState(fallbackDoctors);
   const val=useRef();
 const nav = useNavigate();
 const user = useSelector((state)=>state.auth.user)
+const { axios } = useAxios();
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await axios.get("/doctors");
+        if (res.data.doctors?.length) {
+          setDoctors(res.data.doctors.filter((doctor) => doctor.isActive !== false));
+        }
+      } catch {
+        setDoctors(fallbackDoctors);
+      }
+    };
+
+    fetchDoctors();
+    // useAxios creates the client for this component; this load should run once.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const filteredDoctors = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    if (!term) return doctors;
+
+    return doctors.filter((doc) =>
+      [doc.name, doc.specialist, doc.specialty]
+        .filter(Boolean)
+        .some((value) => value.toLowerCase().includes(term))
+    );
+  }, [doctors, search]);
 
   return (
     <>
@@ -20,8 +51,9 @@ const user = useSelector((state)=>state.auth.user)
         Search <span className="spec">by specialist</span> {" "}
          </h1>
        
-        <input value={search}
-         
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           type="text"
           className="inline-block search-inp border border-gray-400 ml-2 font-normal text-sm px-2 py-1 placeholder:text-sm text-gray-200 w-70"
           placeholder="cardiologist, dermatologist"
@@ -37,12 +69,17 @@ const user = useSelector((state)=>state.auth.user)
         </select>
         </div>
      
-</div>
+      </div>
       {/* Grid */}
       <div className="flex flex-wrap gap-7 justify-center">
-        {doctors.map((doc, index) => (
+        {filteredDoctors.map((doc, index) => {
+          const id = doc._id || doc.id || index;
+          const specialty = doc.specialist || doc.specialty;
+          const fee = doc.consultationFee || doc.fee;
+
+          return (
           <div
-            key={index}
+            key={id}
             className="dr-card w-50 relative shadow-md rounded-lg overflow-hidden mt-4"
           >
             <img
@@ -55,28 +92,31 @@ const user = useSelector((state)=>state.auth.user)
 
             {/* Rating */}
             <span className="absolute top-0 right-0 text-sm bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
-              ⭐ {doc.rating}
+              ⭐ {doc.rating || "New"}
             </span>
 
             {/* Info */}
             <div className="p-3 dr-info">
               <h3 className="font-semibold dr-name text-green-600">{doc.name}</h3>
 
-              <h4 ref={val} className="text-gray-700 speciality">{doc.specialty}</h4>
+              <h4 ref={val} className="text-gray-700 speciality">{specialty}</h4>
 
               <p className="text-gray-400 text-sm dr-exp">
                 {doc.experience}+ years experience
               </p>
+              {fee ? <p className="text-gray-400 text-sm">Rs {fee}</p> : null}
 
               <button onClick={()=>{if(!user){
                 confirm("Please log in!!")
                 nav("/login")
+              } else {
+                nav(`/doctor/${id}`);
               }}} className="mt-2 w-full border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">
                 Consult Now
               </button>
             </div>
           </div>
-        ))}
+        )})}
       </div>
     </div>
     </>

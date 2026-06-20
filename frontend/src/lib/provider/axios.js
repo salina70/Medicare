@@ -5,10 +5,17 @@ export const useAxios = () => {
   });
 
   axiosInstance.interceptors.request.use((request) => {
-    const token = localStorage.getItem("token");
-    console.log(token);
+    const storedToken = localStorage.getItem("token");
+    let token = storedToken;
 
-    if (token && token != null && token != "null")
+    try {
+      const parsed = JSON.parse(storedToken);
+      token = parsed?.token || storedToken;
+    } catch {
+      token = storedToken;
+    }
+
+    if (token && token !== "null")
       request.headers["Authorization"] = `Bearer ${token}`;
 
     return request;

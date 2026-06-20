@@ -1,16 +1,14 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function AdminLayout() {
   const menuItems = [
+    { name: "Home", path: "/" },
     { name: "Dashboard", path: "/dashboard/admin" },
-    { name: "Patients", path: "/dashboard/patients" },
     { name: "Doctors", path: "/dashboard/doctors" },
+    { name: "Add Doctor", path: "/dashboard/add-doctor" },
+    { name: "Patients", path: "/dashboard/patients" },
     { name: "Appointments", path: "/dashboard/appointments" },
-    { name: "Schedules", path: "/dashboard/schedules" },
-    { name: "Payments", path: "/dashboard/payments" },
-    { name: "Reports", path: "/dashboard/reports" },
-    { name: "Settings", path: "/dashboard/settings" },
   ];
 
   return (
@@ -24,13 +22,17 @@ export default function AdminLayout() {
 
         <nav className="mt-4">
           {menuItems.map((item) => (
-            <Link
+            <NavLink
               key={item.name}
               to={item.path}
-              className="block px-6 py-3 hover:bg-blue-800 transition"
+              className={({ isActive }) =>
+                `block px-6 py-3 transition ${
+                  isActive ? "bg-blue-700" : "hover:bg-blue-800"
+                }`
+              }
             >
               {item.name}
-            </Link>
+            </NavLink>
           ))}
         </nav>
       </aside>

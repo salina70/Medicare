@@ -1,19 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {doctors} from "../../data/doctor"
+import { useAxios } from "../../lib/provider/axios";
 
 function DoctorProfile() {
   const [saved, setSaved] = useState(false);
+  const [doctor, setDoctor] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   let { id } = useParams();
-  const doctor = doctors.find((doc) => doc.id === Number(id));
+  const { axios } = useAxios();
+
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`/doctors/${id}`);
+        setDoctor(res.data.doctor);
+      } catch {
+        const localDoctor = doctors.find((doc) => doc.id === Number(id));
+        setDoctor(localDoctor || null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctor();
+    // useAxios creates the client for this component; reload only when route id changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  const details = useMemo(() => {
+    if (!doctor) return null;
+
+    return {
+      specialty: doctor.specialist || doctor.specialty,
+      education: doctor.qualification || doctor.education || "N/A",
+      location: doctor.address || doctor.location || "N/A",
+      fee: doctor.consultationFee || doctor.fee || "N/A",
+      image: doctor.image || "/images/doctor.png",
+      rating: doctor.rating || "New",
+    };
+  }, [doctor]);
+
+  if (loading) {
+    return <div className="p-10 text-center text-gray-400">Loading doctor...</div>;
+  }
+
+  if (!doctor) {
+    return <div className="p-10 text-center text-gray-400">Doctor not found</div>;
+  }
 
   return (
     <>
       <div className="mt-6">
         <h2 className="text-4xl text-center mb-4 text-green-600">
           {doctor.name} -{" "}
-          <span className="text-gray-500 text-2xl"> {doctor.specialty}</span>{" "}
+          <span className="text-gray-500 text-2xl"> {details.specialty}</span>{" "}
           <p className="text-xl mt-2 text-gray-500">
             <i className="fa-regular fa-star"></i>No reviews yet
           </p>
@@ -23,7 +66,7 @@ function DoctorProfile() {
             <div className="flex gap-2">
               <div className="relative">
                 <img
-                  src={doctor.image}
+                  src={details.image}
                   alt={doctor.name}
                   className="w-50 h-50 object-cover rounded-xl object-center"
                 />
@@ -43,11 +86,11 @@ function DoctorProfile() {
               </div>
               <div className="flex flex-col gap-2 pl-4 text-sm">
                 <h2>Experience: {doctor.experience}+ years</h2>
-                <h2>Education: {doctor.education}</h2>
-                <h2>Location: {doctor.location}</h2>
-                <h2>Fee: Rs {doctor.fee}</h2>
+                <h2>Education: {details.education}</h2>
+                <h2>Location: {details.location}</h2>
+                <h2>Fee: {details.fee === "N/A" ? "N/A" : `Rs ${details.fee}`}</h2>
 
-                <h2>Rating: {doctor.rating}</h2>
+                <h2>Rating: {details.rating}</h2>
                 <div className="flex gap-2">
                   <button className="border-green-600 bg-green-500 hover:bg-green-600 w-30 text-sm text-black font-semibold px-1 py-1 rounded-md">
                     Consult Now

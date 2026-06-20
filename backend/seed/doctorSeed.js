@@ -2,32 +2,38 @@
 
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Doctor from "../models/Doctor.js";
+import Doctor from "../models/doctorModel.js";
 
 dotenv.config();
 
 const doctors = [
   {
     name: "Dr. Ashma Sharma",
-    specialty: "Cardiologist",
+    email: "ashma.sharma@example.com",
+    specialist: "Cardiologist",
+    description: "Experienced cardiologist focused on preventive heart care.",
     experience: 12,
-    fee: 1200,
+    consultationFee: 1200,
     rating: 4.8,
     image: "/images/dr1.jpg",
   },
   {
     name: "Dr. Rakesh Verma",
-    specialty: "Dermatologist",
+    email: "rakesh.verma@example.com",
+    specialist: "Dermatologist",
+    description: "Dermatologist treating common skin, hair, and nail concerns.",
     experience: 8,
-    fee: 900,
+    consultationFee: 900,
     rating: 4.6,
     image: "/images/dr2.jpg",
   },
   {
     name: "Dr. Rohan Gupta",
-    specialty: "Neurologist",
+    email: "rohan.gupta@example.com",
+    specialist: "Neurologist",
+    description: "Neurologist providing diagnosis and follow-up care.",
     experience: 15,
-    fee: 1500,
+    consultationFee: 1500,
     rating: 4.9,
     image: "/images/dr3.jpg",
   },
