@@ -33,7 +33,10 @@ export const createAppointment = async (req, res) => {
 export const getAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.find()
-    console.log(appointments);
+      .populate("patient_id", "name email")
+      .populate("doctor_id", "name specialist")
+      .sort({ dateTime: -1 });
+
     res.status(200).json({
       success: true,
       appointments,

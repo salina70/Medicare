@@ -33,7 +33,7 @@ function Heropage() {
     try {
       const res = await axios.get(`/doctors?specialist=${value}`);
 
-      setDoctors(res.data.doctors);
+      setDoctors((res.data.doctors || []).filter((doctor) => doctor.isActive !== false));
     } catch (error) {
       console.log(error);
     }
@@ -198,6 +198,14 @@ if(!user){
 
                 <option className="bg-gray-500" value="Pediatrician">
                   Pediatrician
+                </option>
+
+                <option className="bg-gray-500" value="Ophthalmologist">
+                  Ophthalmologist
+                </option>
+
+                <option className="bg-gray-500" value="General Physician">
+                  General Physician
                 </option>
               </select>
 

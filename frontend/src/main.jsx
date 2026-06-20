@@ -20,6 +20,11 @@ import { PatientDashboard } from "./components/patient/PatientDashboard.jsx";
 import { store } from "./redux/store.js";
 import AllDoctor from "./components/doctor/AllDoctor.jsx";
 import GetData from "./components/pages/GetData.jsx";
+<<<<<<< HEAD
+=======
+import AdminLayout from "./components/admin/AdminLayout.jsx";
+import AdminDoctors from "./components/admin/AdminDoctors.jsx";
+>>>>>>> 6db22a39d92bd30f3a66baa69edfd027054a8058
 import Appointments from "./components/admin/Appointments.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -29,7 +34,7 @@ createRoot(document.getElementById("root")).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/get" element={<GetData />} />
-          {/* <Route path="/doctor/:id" element={<DoctorProfile />} /> */}
+          <Route path="/doctor/:id" element={<DoctorProfile />} />
           {/* <Route path="/all-doctors" element={<AllDoctor/>} /> */}
           {/* <Route path="/register" element={<LoginForm/>}/> */}
 
@@ -39,8 +44,13 @@ createRoot(document.getElementById("root")).render(
 
           <Route element={<ProtectedRoute />}>
             <Route element={<CheckAdmin />}>
-              <Route path="/dashboard/admin" element={<AdminDashboard />} />
-              <Route path="/dashboard/add-doctor" element={<AddDoctor />} />
+              <Route path="/dashboard" element={<AdminLayout />}>
+                <Route path="admin" element={<AdminDashboard />} />
+                <Route path="doctors" element={<AdminDoctors />} />
+                <Route path="add-doctor" element={<AddDoctor />} />
+                <Route path="patients" element={<Patients />} />
+                <Route path="appointments" element={<Appointments />} />
+              </Route>
             </Route>
             <Route path="/dashboard/users" element={<PatientDashboard />} />
             <Route path="/all-doctors" element={<AllDoctor />} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useAxios } from "../../lib/provider/axios";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -19,9 +19,14 @@ function Login() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
-  if (user) {
-    navigate("/dashboard/admin");
-  }
+  useEffect(() => {
+    if (!user) return;
+
+    const isAdmin =
+      typeof user.isAdmin === "string" ? user.isAdmin === "true" : user.isAdmin;
+
+    navigate(isAdmin ? "/dashboard/admin" : "/dashboard/users");
+  }, [navigate, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

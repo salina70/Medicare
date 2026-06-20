@@ -1,23 +1,22 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 export function ProtectedRoute() {
-  const loginData = JSON.parse(localStorage.getItem("token"));
-  console.log(loginData);
+  const storedLogin = localStorage.getItem("token");
+  const loginData = storedLogin ? JSON.parse(storedLogin) : null;
 
-  if (!loginData.token || loginData.token === null)
+  if (!loginData?.token)
     return <Navigate to="/login" />;
   return <Outlet />;
 }
 
 export function CheckAdmin() {
-  const loginData = JSON.parse(localStorage.getItem("token"));
+  const storedLogin = localStorage.getItem("token");
+  const loginData = storedLogin ? JSON.parse(storedLogin) : null;
 
   const isAdmin =
-    typeof loginData.user.isAdmin === "string"
+    typeof loginData?.user?.isAdmin === "string"
       ? loginData.user.isAdmin === "true"
-        ? true
-        : false
-      : loginData.user.isAdmin;
+      : !!loginData?.user?.isAdmin;
 
   if (!isAdmin) return <Navigate to="/dashboard/users" />;
 

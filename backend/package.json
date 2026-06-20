@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
       "seed": "node seed/doctorSeed.js",
+    "seed:demo": "node seed/demoSeed.js",
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,5 +26,8 @@
     "nodemailer": "^9.0.0",
     "redis": "^6.0.0",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

@@ -15,5 +15,7 @@ export const doctorSchema = z.object({
     .string()
     .refine((val) => Number(val) > 0, "Fee must be greater than 0"),
   address: z.string().min(5, "Address is required"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  image: z.string().optional(),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
