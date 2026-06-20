@@ -47,12 +47,16 @@ function Heropage() {
   };
 
   const bookAppValidate = () => {
-    if (!user) {
-      confirm("please login first");
-      nav("/login");
-    } else {
-      setOpen(true);
-    }
+if(!user){
+      const popup = confirm("please login first!")
+      if(popup){
+        nav("/login")
+        return;
+      }else{
+        return;
+      }
+}
+   
   };
 
   const handleSubmit = async (e) => {

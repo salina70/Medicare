@@ -17,9 +17,8 @@ function AdminDashboard() {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* LEFT SIDEBAR */}
-      <div className="left w-56 bg-white shadow-md flex flex-col gap-2 p-3">
+      <div className="left w-46 bg-white shadow-md flex flex-col gap-2 p-3">
         <h2 className="text-xl font-bold text-green-600 mb-4">Admin Panel</h2>
-
         {menuItems.map((item, idx) => (
           <NavLink
             key={idx}
@@ -44,8 +43,6 @@ function AdminDashboard() {
         <h1 className="text-2xl font-semibold text-gray-700">
           Welcome to Admin Dashboard
         </h1>
-
-        
       </div>
     </div>
   );

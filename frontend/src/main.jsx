@@ -8,8 +8,7 @@ import App from "./App.jsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DoctorProfile from "./components/doctor/DoctorProfile.jsx";
-// import AllDoctor from "./components/doctor/AllDoctor.jsx";
-// import RegisterPage from "./pages/register.jsx";
+
 // import LoginForm from "./pages/register.jsx";
 import Login from "./components/pages/Login.jsx";
 import Signup from "./components/pages/Signup.jsx";
@@ -21,7 +20,7 @@ import { PatientDashboard } from "./components/patient/PatientDashboard.jsx";
 import { store } from "./redux/store.js";
 import AllDoctor from "./components/doctor/AllDoctor.jsx";
 import GetData from "./components/pages/GetData.jsx";
-import AdminLayout from "./components/admin/AdminLayout.jsx";
+import Appointments from "./components/admin/Appointments.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -36,7 +35,7 @@ createRoot(document.getElementById("root")).render(
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/patients" element={<Patients />} />
+          <Route path="/dashboard/patients" element={<Patients />} />
 
           <Route element={<ProtectedRoute />}>
             <Route element={<CheckAdmin />}>
@@ -45,6 +44,7 @@ createRoot(document.getElementById("root")).render(
             </Route>
             <Route path="/dashboard/users" element={<PatientDashboard />} />
             <Route path="/all-doctors" element={<AllDoctor />} />
+            <Route path="/dashboard/appointments" element={<Appointments/>} />
           </Route>
         </Routes>
       </Provider>
