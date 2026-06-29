@@ -7,6 +7,7 @@ function DoctorProfile() {
   const [saved, setSaved] = useState(false);
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
+const [showloginMessage, setshowloginMessage] = useState(false)
 
   let { id } = useParams();
   const { axios } = useAxios();
@@ -50,6 +51,8 @@ function DoctorProfile() {
   if (!doctor) {
     return <div className="p-10 text-center text-gray-400">Doctor not found</div>;
   }
+const user = JSON.parse(localStorage.getItem("token"))
+
 
   return (
     <>
@@ -92,10 +95,30 @@ function DoctorProfile() {
 
                 <h2>Rating: {details.rating}</h2>
                 <div className="flex gap-2">
-                  <button className="border-green-600 bg-green-500 hover:bg-green-600 w-30 text-sm text-black font-semibold px-1 py-1 rounded-md">
+
+                    {
+                      showloginMessage && (
+                        <p className="text-red-600 absolute top-75 animate-pulse left-53">
+                          Please login to your account!
+                        </p>
+                      )
+                    }
+                  <button
+                 onClick={()=>{
+                  if(!user){
+                    setshowloginMessage(true);
+                    setTimeout(() => {
+                      setshowloginMessage(false)
+                    }, 1800);
+                    return;
+                  }else{
+                    alert("conult")
+                  }
+                 }}
+                  className="border-green-600 bg-green-500 hover:bg-green-600 w-30 text-sm text-black font-semibold px-1 py-1 rounded-md">
                     Consult Now
                   </button>
-                  <button className="border-1 rounded-sm border-green-700 p-1 w-30">
+                  <button className="border rounded-sm border-green-700 p-1 w-30">
                     Message Doctor
                   </button>
                 </div>

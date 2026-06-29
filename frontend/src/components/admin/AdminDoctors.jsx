@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Edit, Eye, Plus, Search, Trash2, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAxios } from "../../lib/provider/axios";
 
 const emptyForm = {
@@ -38,6 +38,7 @@ function toForm(doctor) {
 }
 
 export default function AdminDoctors() {
+ 
   const { axios } = useAxios();
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
@@ -46,6 +47,10 @@ export default function AdminDoctors() {
   const [editingDoctor, setEditingDoctor] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const nav = useNavigate()
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+const doctorsPerPage = 5;
 
   useEffect(() => {
     let ignore = false;
@@ -53,6 +58,7 @@ export default function AdminDoctors() {
     axios
       .get("/doctors")
       .then((res) => {
+        console.log(res.data)
         if (!ignore) setDoctors(res.data.doctors || []);
       })
       .catch((error) => {
@@ -78,15 +84,16 @@ export default function AdminDoctors() {
     return doctors.filter((doctor) =>
       [doctor.name, doctor.email, doctor.specialist, doctor.department]
         .filter(Boolean)
-        .some((value) => value.toLowerCase().includes(term))
+        .some((value) => value.toLowerCase().includes(term)),
     );
   }, [doctors, search]);
+  console.log(filteredDoctors)
 
   const openEdit = (doctor) => {
     setEditingDoctor(doctor);
     setForm(toForm(doctor));
   };
-
+console.log(editingDoctor)
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setForm((prev) => ({
@@ -103,8 +110,8 @@ export default function AdminDoctors() {
       const res = await axios.patch(`/doctors/${editingDoctor._id}`, form);
       setDoctors((prev) =>
         prev.map((doctor) =>
-          doctor._id === editingDoctor._id ? res.data.doctor : doctor
-        )
+          doctor._id === editingDoctor._id ? res.data.doctor : doctor,
+        ),
       );
       setEditingDoctor(null);
     } catch (error) {
@@ -148,13 +155,14 @@ export default function AdminDoctors() {
             />
           </div>
 
-          <Link
-            to="/dashboard/add-doctor"
+          <button
+           onClick={()=>nav("/dashboard/add-doctor")}
+         
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2 font-medium text-white hover:bg-green-700"
           >
             <Plus size={18} />
             Add Doctor
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -173,7 +181,10 @@ export default function AdminDoctors() {
 
           <tbody>
             {filteredDoctors.map((doctor) => (
-              <tr key={doctor._id} className="border-t border-gray-700 hover:bg-gray-800">
+              <tr
+                key={doctor._id}
+                className="border-t border-gray-700 hover:bg-gray-800"
+              >
                 <td className="p-4">
                   <div className="font-medium">{doctor.name}</div>
                   <div className="text-sm text-gray-400">{doctor.email}</div>
@@ -181,7 +192,9 @@ export default function AdminDoctors() {
                 <td className="p-4">{doctor.specialist}</td>
                 <td className="p-4">{doctor.experience || 0} years</td>
                 <td className="p-4">
-                  {doctor.consultationFee ? `Rs ${doctor.consultationFee}` : "N/A"}
+                  {doctor.consultationFee
+                    ? `Rs ${doctor.consultationFee}`
+                    : "N/A"}
                 </td>
                 <td className="p-4">
                   <span
@@ -228,11 +241,15 @@ export default function AdminDoctors() {
         </table>
 
         {!loading && filteredDoctors.length === 0 && (
-          <div className="py-10 text-center text-gray-400">No doctors found</div>
+          <div className="py-10 text-center text-gray-400">
+            No doctors found
+          </div>
         )}
 
         {loading && (
-          <div className="py-10 text-center text-gray-400">Loading doctors...</div>
+          <div className="py-10 text-center text-gray-400">
+            Loading doctors...
+          </div>
         )}
       </div>
 
@@ -270,13 +287,27 @@ function DoctorDetailsModal({ doctor, onClose }) {
 
         <h2 className="mb-4 text-2xl font-bold">{doctor.name}</h2>
         <div className="grid gap-3 text-sm">
-          <p><strong>Email:</strong> {doctor.email}</p>
-          <p><strong>Phone:</strong> {doctor.phone || "N/A"}</p>
-          <p><strong>Specialty:</strong> {doctor.specialist}</p>
-          <p><strong>Department:</strong> {doctor.department || "N/A"}</p>
-          <p><strong>Qualification:</strong> {doctor.qualification || "N/A"}</p>
-          <p><strong>Address:</strong> {doctor.address || "N/A"}</p>
-          <p><strong>Description:</strong> {doctor.description}</p>
+          <p>
+            <strong>Email:</strong> {doctor.email}
+          </p>
+          <p>
+            <strong>Phone:</strong> {doctor.phone || "N/A"}
+          </p>
+          <p>
+            <strong>Specialty:</strong> {doctor.specialist}
+          </p>
+          <p>
+            <strong>Department:</strong> {doctor.department || "N/A"}
+          </p>
+          <p>
+            <strong>Qualification:</strong> {doctor.qualification || "N/A"}
+          </p>
+          <p>
+            <strong>Address:</strong> {doctor.address || "N/A"}
+          </p>
+          <p>
+            <strong>Description:</strong> {doctor.description}
+          </p>
         </div>
       </div>
     </div>
@@ -300,34 +331,123 @@ function EditDoctorModal({ form, saving, onChange, onSubmit, onClose }) {
 
         <h2 className="md:col-span-2 text-2xl font-bold">Edit Doctor</h2>
 
-        <input name="name" value={form.name} onChange={onChange} placeholder="Name" className="rounded border border-gray-700 bg-gray-800 p-3" required />
-        <input name="email" value={form.email} onChange={onChange} placeholder="Email" className="rounded border border-gray-700 bg-gray-800 p-3" required />
-        <input name="phone" value={form.phone} onChange={onChange} placeholder="Phone" className="rounded border border-gray-700 bg-gray-800 p-3" />
-        <select name="gender" value={form.gender} onChange={onChange} className="rounded border border-gray-700 bg-gray-800 p-3">
+        <input
+          name="name"
+          value={form.name}
+          onChange={onChange}
+          placeholder="Name"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+          required
+        />
+        <input
+          name="email"
+          value={form.email}
+          onChange={onChange}
+          placeholder="Email"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+          required
+        />
+        <input
+          name="phone"
+          value={form.phone}
+          onChange={onChange}
+          placeholder="Phone"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        />
+        <select
+          name="gender"
+          value={form.gender}
+          onChange={onChange}
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        >
           <option value="">Gender</option>
           <option>Male</option>
           <option>Female</option>
           <option>Other</option>
         </select>
-        <input name="specialist" value={form.specialist} onChange={onChange} placeholder="Specialty" className="rounded border border-gray-700 bg-gray-800 p-3" required />
-        <input name="department" value={form.department} onChange={onChange} placeholder="Department" className="rounded border border-gray-700 bg-gray-800 p-3" />
-        <input name="experience" type="number" value={form.experience} onChange={onChange} placeholder="Experience" className="rounded border border-gray-700 bg-gray-800 p-3" />
-        <input name="consultationFee" type="number" value={form.consultationFee} onChange={onChange} placeholder="Consultation Fee" className="rounded border border-gray-700 bg-gray-800 p-3" />
-        <input name="qualification" value={form.qualification} onChange={onChange} placeholder="Qualification" className="rounded border border-gray-700 bg-gray-800 p-3" />
-        <input name="image" value={form.image} onChange={onChange} placeholder="Image URL" className="rounded border border-gray-700 bg-gray-800 p-3" />
-        <textarea name="address" value={form.address} onChange={onChange} placeholder="Address" className="rounded border border-gray-700 bg-gray-800 p-3 md:col-span-2" />
-        <textarea name="description" value={form.description} onChange={onChange} placeholder="Description" className="rounded border border-gray-700 bg-gray-800 p-3 md:col-span-2" required />
+        <input
+          name="specialist"
+          value={form.specialist}
+          onChange={onChange}
+          placeholder="Specialty"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+          required
+        />
+        <input
+          name="department"
+          value={form.department}
+          onChange={onChange}
+          placeholder="Department"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        />
+        <input
+          name="experience"
+          type="number"
+          value={form.experience}
+          onChange={onChange}
+          placeholder="Experience"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        />
+        <input
+          name="consultationFee"
+          type="number"
+          value={form.consultationFee}
+          onChange={onChange}
+          placeholder="Consultation Fee"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        />
+        <input
+          name="qualification"
+          value={form.qualification}
+          onChange={onChange}
+          placeholder="Qualification"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        />
+        <input
+          name="image"
+          value={form.image}
+          onChange={onChange}
+          placeholder="Image URL"
+          className="rounded border border-gray-700 bg-gray-800 p-3"
+        />
+        <textarea
+          name="address"
+          value={form.address}
+          onChange={onChange}
+          placeholder="Address"
+          className="rounded border border-gray-700 bg-gray-800 p-3 md:col-span-2"
+        />
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={onChange}
+          placeholder="Description"
+          className="rounded border border-gray-700 bg-gray-800 p-3 md:col-span-2"
+          required
+        />
 
         <label className="flex items-center gap-2">
-          <input type="checkbox" name="isActive" checked={form.isActive} onChange={onChange} />
+          <input
+            type="checkbox"
+            name="isActive"
+            checked={form.isActive}
+            onChange={onChange}
+          />
           Active for booking
         </label>
 
         <div className="flex justify-end gap-3 md:col-span-2">
-          <button type="button" onClick={onClose} className="rounded border border-gray-600 px-5 py-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded border border-gray-600 px-5 py-2"
+          >
             Cancel
           </button>
-          <button disabled={saving} className="rounded bg-green-600 px-5 py-2 text-white disabled:bg-green-400">
+          <button
+            disabled={saving}
+            className="rounded bg-green-600 px-5 py-2 text-white disabled:bg-green-400"
+          >
             {saving ? "Saving..." : "Save Changes"}
           </button>
         </div>

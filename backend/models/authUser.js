@@ -16,12 +16,15 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "password is required"],
-      minlength: 6,
+      // minlength:6,
+      trim:true,
     },
-   isAdmin:{
-    type:Boolean,
-    default:false
-   }
+
+    role: {
+      type: String,
+      enum: ["patient", "doctor", "admin"],
+      default:"patient"
+    },
   },
   {
     timestamps: true,

@@ -15,6 +15,7 @@ const appointmentSchema = new mongoose.Schema(
     age: {
       type: Number,
       required: true,
+      
     },
 
     gender: {

@@ -20,6 +20,7 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: "",
+      required: true,
     },
 
     gender: {
@@ -43,31 +44,31 @@ const doctorSchema = new mongoose.Schema(
     department: {
       type: String,
       trim: true,
-      default: "",
+      required: true,
     },
 
     experience: {
       type: Number,
       min: 0,
-      default: 0,
+      required: true,
     },
 
     qualification: {
       type: String,
       trim: true,
-      default: "",
+      required: true,
     },
 
     consultationFee: {
       type: Number,
       min: 0,
-      default: 0,
+      required: true,
     },
 
     address: {
       type: String,
       trim: true,
-      default: "",
+      required: true,
     },
 
     description: {
@@ -79,6 +80,7 @@ const doctorSchema = new mongoose.Schema(
     image: {
       type: String,
       default: "/images/doctor.png",
+      required: true,
     },
 
     rating: {
@@ -91,8 +93,10 @@ const doctorSchema = new mongoose.Schema(
     password: {
       type: String,
       select: false,
-    },
+            required:true,
 
+    },
+   
     isActive: {
       type: Boolean,
       default: true,
@@ -100,7 +104,7 @@ const doctorSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Doctor = mongoose.model("Doctor", doctorSchema);

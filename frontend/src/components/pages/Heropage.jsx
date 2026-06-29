@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useAxios } from "../../lib/provider/axios";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Department from "./Department";
+import { current } from "@reduxjs/toolkit";
+// import { requiresAuth } from "../../../../backend/middlewares/requiresAuth";
 
-function Heropage() {
+function Heropage({departmentRef}) {
   const [open, setOpen] = useState(false);
-  const [showDept, setshowDept] = useState(false);
   const nav = useNavigate();
-
+  
   const [specialist, setSpecialist] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
 
   const { axios } = useAxios();
 
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
+  // console.log(user);
+  const user = JSON.parse(localStorage.getItem("token"));
+  console.log(user);
   const [formData, setFormData] = useState({
     dateTime: "",
     description: "",
@@ -24,7 +29,7 @@ function Heropage() {
     email: user?.email,
     patient_id: user?.id,
   });
-  console.log(user);
+
   const handleSpecialistChange = async (e) => {
     const value = e.target.value;
 
@@ -33,7 +38,9 @@ function Heropage() {
     try {
       const res = await axios.get(`/doctors?specialist=${value}`);
 
-      setDoctors((res.data.doctors || []).filter((doctor) => doctor.isActive !== false));
+      setDoctors(
+        (res.data.doctors || []).filter((doctor) => doctor.isActive !== false),
+      );
     } catch (error) {
       console.log(error);
     }
@@ -47,16 +54,9 @@ function Heropage() {
   };
 
   const bookAppValidate = () => {
-if(!user){
-      const popup = confirm("please login first!")
-      if(popup){
-        nav("/login")
-        return;
-      }else{
-        return;
-      }
-}
-   
+    if (user) {
+      setOpen(true);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -98,6 +98,7 @@ if(!user){
   };
 
   const now = new Date().toISOString().slice(0, 16);
+
   return (
     <>
       {/* HERO SECTION */}
@@ -110,23 +111,28 @@ if(!user){
             </span>
           </h1>
 
-          <p className="text-xs text-gray-500 mt-4">
+          <p className="text-xs text-gray-500 mt-4 ml-4 mb-2">
             consult with doctors in video call and get your health checkup
           </p>
-
+          {user ? (
+            <button
+              onClick={bookAppValidate}
+              className="bg-green-500 px-4 py-2 mt-4"
+            >
+              Book Appointment
+            </button>
+          ) : null}
           <button
-            onClick={bookAppValidate}
-            className="bg-green-500 px-4 py-2 mt-4"
-          >
-            Book Appointment
-          </button>
-
-          <button
-            onClick={() => setshowDept(!showDept)}
-            className="border ml-4 px-4 py-2"
+            onClick={() => {
+              departmentRef.current?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+            className="border rounded-md ml-4 px-4 py-2 border-green-400"
           >
             View Departments
           </button>
+         
         </div>
         <div>
           <img

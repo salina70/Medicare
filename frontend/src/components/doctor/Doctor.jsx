@@ -9,14 +9,16 @@ function Doctor() {
   const { axios } = useAxios();
   const [doctors, setDoctors] = useState(fallbackDoctors);
 
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const res = await axios.get("/doctors");
         if (res.data.doctors?.length) {
-          setDoctors(res.data.doctors.filter((doctor) => doctor.isActive !== false));
+          setDoctors(
+            res.data.doctors.filter((doctor) => doctor.isActive !== false),
+          );
         }
       } catch {
         setDoctors(fallbackDoctors);
@@ -27,6 +29,7 @@ function Doctor() {
     // useAxios creates the client for this component; this load should run once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+const user = JSON.parse(localStorage.getItem("token"));
 
   return (
     <>
@@ -75,7 +78,8 @@ function Doctor() {
                   {doc.experience}+ experience
                 </p>
                 {fee ? <p className="text-sm text-gray-400">Rs {fee}</p> : null}
-                <button
+              
+              {user ?  <button
                   onClick={() => {
                     if (!user) {
                       const shouldLogin = confirm(
@@ -92,7 +96,7 @@ function Doctor() {
                   className="consult-btn mt-2 w-40 border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition"
                 >
                   Consult Now
-                </button>
+                </button> : null}
               </div>
             );
           })}

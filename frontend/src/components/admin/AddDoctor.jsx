@@ -12,6 +12,7 @@ export default function AddDoctor() {
     phone: "",
     gender: "",
     specialty: "",
+    role: "",
     department: "",
     experience: "",
     qualification: "",
@@ -151,20 +152,6 @@ export default function AddDoctor() {
             )}
           </div>
 
-          {/* Department */}
-          <div>
-            <label>Department</label>
-            <input
-              name="department"
-              value={doctor.department}
-              onChange={handleChange}
-              className="w-full border border-gray-700 bg-gray-800 p-3 rounded"
-            />
-            {errors.department && (
-              <p className="text-red-500 text-sm">{errors.department}</p>
-            )}
-          </div>
-
           {/* Experience */}
           <div>
             <label>Experience</label>
@@ -208,6 +195,9 @@ export default function AddDoctor() {
               <p className="text-red-500 text-sm">{errors.consultationFee}</p>
             )}
           </div>
+
+       
+
 
           {/* Address */}
           <div className="md:col-span-2">

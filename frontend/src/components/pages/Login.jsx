@@ -4,7 +4,7 @@ import { useAxios } from "../../lib/provider/axios";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../slice/authSlice";
+import { loginUser, logout } from "../../slice/authSlice";
 import { useSelector } from "react-redux";
 
 function Login() {
@@ -19,14 +19,14 @@ function Login() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    if (!user) return;
+  // useEffect(() => {
+  //   if (!user) return;
 
-    const isAdmin =
-      typeof user.isAdmin === "string" ? user.isAdmin === "true" : user.isAdmin;
+  //   const isAdmin =
+  //     typeof user.isAdmin === "string" ? user.isAdmin === "true" : user.isAdmin;
 
-    navigate(isAdmin ? "/dashboard/admin" : "/dashboard/users");
-  }, [navigate, user]);
+  //   navigate(isAdmin ? "/dashboard/admin" : "/dashboard/users");
+  // }, [navigate, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,35 +39,62 @@ function Login() {
 
   const { axios } = useAxios();
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   try {
+  //     const res = await axios.post("/auth/login", formData, {
+  //       withCredentials: true,
+  //     });
+  //     toast.success("Login successful 🚀");
+
+  //     console.log("Login success:", res.data);
+  //     dispatch(loginUser(res.data.user));
+
+  //     // Example: save token
+  //     localStorage.setItem("token", JSON.stringify(res.data));
+  //     let isAdmin =
+  //       typeof res.data.user.isAdmin === "string"
+  //         ? res.data.user.isAdmin === "true"
+  //           ? true
+  //           : false
+  //         : res.data.user.isAdmin;
+  //     // redirect after login
+  //     return isAdmin
+  //       ? navigate("/dashboard/admin")
+  //       : navigate("/dashboard/users");
+  //   } catch (error) {
+  //     setLoading(false);
+  //     toast.error(error.response?.data?.message || "login failed");
+  //     console.log("Login error:", error.response?.data || error.message);
+  //   }
+  // };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
+    console.log("hi");
     try {
-      const res = await axios.post("/auth/login", formData, {
-        withCredentials: true,
-      });
-      toast.success("Login successful 🚀");
+      const finalformData = await axios.post(
+        "http://localhost:8000/api/auth/login",
+        formData,
+      );
+      console.log(finalformData);
+      localStorage.setItem("token", JSON.stringify(finalformData.data.token));
+   dispatch(loginUser())
+      const roleData = finalformData.data?.user?.role;
+      console.log(typeof roleData);
+      localStorage.setItem("role", JSON.stringify(roleData));
 
-      console.log("Login success:", res.data);
-      dispatch(loginUser(res.data.user));
-
-      // Example: save token
-      localStorage.setItem("token", JSON.stringify(res.data));
-      let isAdmin =
-        typeof res.data.user.isAdmin === "string"
-          ? res.data.user.isAdmin === "true"
-            ? true
-            : false
-          : res.data.user.isAdmin;
-      // redirect after login
-      return isAdmin
-        ? navigate("/dashboard/admin")
-        : navigate("/dashboard/users");
+      if (roleData.trim() === "admin") {
+        navigate("/dashboard/admin");
+      } else if (roleData === "doctor") {
+        navigate("/dashboard/doctor");
+      } else {
+        navigate("/dashboard/users");
+      }
     } catch (error) {
-      setLoading(false);
-      toast.error(error.response?.data?.message || "login failed");
-      console.log("Login error:", error.response?.data || error.message);
+      console.log(error);
     }
   };
 

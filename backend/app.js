@@ -41,9 +41,15 @@ app.use(express.json());
 
 // routes
 
-app.use("/api/appointment", appointmentRouter )
+//app.use("/api/doctor",  )
+
+
+// app.use("/api/admin", adminRoutes)
+
 app.use("/api/auth", authUser);
-app.use("/api/admin", adminRoutes);
+app.use("/api/appointment", appointmentRouter )
+
+
 app.use("/api/users", [requiresAuth], async (req, res, next) => {
   try {
     const users = await RegisterUser.find({}).select("-password");
@@ -55,7 +61,7 @@ app.use("/api/users", [requiresAuth], async (req, res, next) => {
 });
 app.use("/api/doctors", doctorRoutes);
 
-
+// app.use("/api/departments", )
 
 // test routes
 app.get("/", (req, res) => {

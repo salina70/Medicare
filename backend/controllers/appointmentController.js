@@ -36,10 +36,11 @@ export const getAppointments = async (req, res) => {
       .populate("patient_id", "name email")
       .populate("doctor_id", "name specialist")
       .sort({ dateTime: -1 });
-
+    const totalAppointments = await Appointment.countDocuments();
     res.status(200).json({
       success: true,
       appointments,
+      totalAppointments
     });
   } catch (error) {
     res.status(500).json({

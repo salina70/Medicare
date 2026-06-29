@@ -1,284 +1,223 @@
 import { useAxios } from "../../lib/provider/axios";
 import React, { useState } from "react";
-import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import { PopupContent } from "../popup/Popup";
+import { usePopup } from "../../context/popupContext";
 
 function AppHeader() {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const closeModal = useRef(null);
-  const doctorModal = useRef(null);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const [open, setOpen] = useState(false);
-  const [signin, setSignin] = useState(false);
-  const [loggedin, setLoggedin] = useState(false);
-
-  const { axios } = useAxios();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isPopupOpen, setisPopupOpen] = useState(false);
+  const [authMode, setAuthMode] = useState(null); // "login" | "signup" | null
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const nav = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const { axios } = useAxios();
+
+  // const user = useSelector((state) => state.auth.user);
+
+  const user = JSON.parse(localStorage.getItem("token"));
   console.log(user);
-
-  // const [docForm, setdocForm] = useState(false)
-
-  const [formData, setformData] = useState({
-    name: "",
-    speciality: "",
-    email: "",
-    experience: "",
-    fee: "",
-  });
-  const [signUp, setSignUp] = useState({
+  const [authForm, setAuthForm] = useState({
     email: "",
     password: "",
     repassword: "",
   });
 
-  const checkForm = () => {
-    if (
-      formData.name.trim() === "" ||
-      formData.speciality.trim() === "" ||
-      formData.email.trim() === "" ||
-      formData.fee.trim() === "" ||
-      formData.experience === ""
-    ) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    alert("Form submitted successfully!");
-    navigate("/patient-dashboard");
-    console.log(setformData(formData));
+  const handleChange = (e) => {
+    setAuthForm({ ...authForm, [e.target.name]: e.target.value });
   };
 
-  const loginModal = () => {
-    if (signin) {
-      closeModal.current.style.display = "none";
-    }
-    setSignin(false);
-    setLoggedin(false);
-  };
-  const SignUp = async (e) => {
-    e.preventDefault();
+  // const handleAuthSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("dashboard");
+  //   try {
+  //     setLoading(true);
+  //     // SIGNUP
+  //     if (authMode === "signup") {
+  //       if (authForm.password !== authForm.repassword) {
+  //         alert("Passwords do not match");
+  //         return;
+  //       }
+  //       console.log(authForm);
+  //       await axios.post("/auth/register", authForm);
+  //       alert("Signup successful!");
+  //       setAuthMode("login");
+  //       setAuthForm({ email: "", password: "", repassword: "" });
+  //     }
 
-    try {
-      setLoading(true);
-      // ✅ SIGNUP FLOW
-      if (!signin) {
-        if (signUp.password !== signUp.repassword) {
-          alert("Passwords do not match");
-          return;
-        }
-        await axios.post("/auth/register", signUp);
+  //     // LOGIN
+  //     else if (authMode === "login") {
+  //       const res = await axios.post("/auth/login", {
+  //         email: authForm.email,
+  //         password: authForm.password,
+  //         role: authForm.role,
+  //       });
 
-        setSignin(false);
-        navigate("/user-dashboard");
-      }
-
-      // ✅ LOGIN FLOW
-      else {
-        console.log(formData);
-      }
-    } catch (error) {
-      console.log(error.response?.data || error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const doctorModalForm = () => {
-    setOpen(false);
-    doctorModal.current.style.display = "none";
-  };
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setSignUp((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
+  //       console.log(res.data);
+  //       setAuthMode(null);
+  //       if (res.role === "admin") {
+  //         navigate("/dashboard/admin");
+  //         return;
+  //       } else if (res.role === "doctor") {
+  //         navigate("/dashboard/doctor");
+  //         return;
+  //       } else {
+  //         navigate("/dashboard/users");
+  //         return;
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response?.data || error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
   // };
 
+  const handleAuthSubmit = (e) => {
+    e.preventDefault();
+    console.log("login");
+    navigate("/dashboard/admin");
+  };
+
+  const {toggle} = usePopup()
+
+  return <>
+  <button onClick={toggle}>show popup</button>
+  <Popup>
+    <PopupContent>
+      Hello worl
+    </PopupContent>
+  </Popup>
+  </>
+
+  // const [logoutPopup, setlogoutPopup] = useState(false)
   return (
     <>
-      <div
-        id="navbar"
-        className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2"
-      >
-        {/* Logo */}
-        <div className="logo font-semibold text-2xl bg-linear-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+      {/* NAVBAR */}
+      <div className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2">
+        <div className="font-semibold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
           Medicare
         </div>
 
-        {/* Search */}
-        <div className="search relative w-[40%]">
-          <input
-            type="text"
-            className="border pl-2.5 border-gray-400 rounded-2xl pr-10 pr-4 py-1.5 w-full focus:outline-none focus:border-green-500"
-            placeholder="fever, cold, headache"
-          />
-        </div>
+        <input
+          className="border rounded-2xl px-3 py-1 w-[40%]"
+          placeholder="fever, cold, headache"
+        />
 
-        {/* Right buttons */}
-        <div className="flex items-center">
+        <div>
           {user ? (
-            <div className="flex gap-4">
-              <div
+            <div className="flex gap-3">
+              <button
                 onClick={() => {
-                  dispatch(logout());
-                  alert("You have successfully logout");
-                  navigate("/");
+                  const confirmLogout = window.confirm(
+                    "Are you sure you want to logout?",
+                  );
+                  if (confirmLogout) {
+                    setisPopupOpen(true);
+                    localStorage.clear("token");
+
+                    navigate("/");
+                  }
                 }}
-                className="sign-in rounded-md px-4 py-1.5 text-sm bg-red-500 font-semibold text-black hover:bg-red-600 cursor-pointer"
+                className="bg-red-500 px-4 py-1 rounded"
               >
-                <i className="fa-solid fa-right-from-bracket mr-1"></i>
                 Logout
-              </div>
-              <Link
-                to={
-                  user.isAdmin === true
-                    ? "/dashboard/admin"
-                    : "/dashboard/users"
-                }
-                className="sign-in rounded-md px-4 py-1.5 text-sm bg-red-500 font-semibold text-black hover:bg-red-600 cursor-pointer"
+              </button>
+
+              <button
+                onClick={() => {
+                  if (user.role === "admin") {
+                    navigate("/dashboard/admin");
+                  } else if (user.role === "patient") {
+                    navigate("/dashboard/users");
+                  } else {
+                    navigate("/dashboard/doctor");
+                  }
+                }}
+                className="bg-green-500 px-4 py-1 rounded"
               >
-                <i className="fa-solid fa-right-from-bracket mr-1"></i>
                 Dashboard
-              </Link>
+              </button>
             </div>
           ) : (
-            <div
+            <button
               onClick={() => navigate("/login")}
-              className="sign-in rounded-md px-4 py-1.5 text-sm bg-green-500 font-semibold text-black hover:bg-green-600 cursor-pointer"
+              className="bg-green-500 text-black px-4 py-1 rounded"
             >
-              <i className="fa-solid fa-user mr-1"></i>
               Sign in
-            </div>
+            </button>
           )}
         </div>
       </div>
 
-      {/* 🔥 MODAL (INSIDE RETURN) */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-          ref={doctorModal}
-        >
-          <div className="bg-gray-800 w-[90%] max-w-md rounded-xl p-6 shadow-lg relative">
-            {/* Close button */}
+      <Popup open={isPopupOpen} onClose={() => isPopupOpen(false)} modal>
+        <button onClick={() => setisPopupOpen(false)}>Close</button>
+      </Popup>
+
+      {/* MODAL */}
+      {authMode && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-gray-800 p-6 rounded-lg w-96 relative text-white">
             <button
-              onClick={doctorModalForm}
-              className="absolute top-2 text-center hover:bg-gray-400 rounded-[50%] h-5 w-5 flex justify-center items-center right-3 text-xl text-gray-600"
+              onClick={() => setAuthMode(null)}
+              className="absolute top-2 right-2"
             >
-              ×
+              ✕
             </button>
 
-            <h2 className="text-xl font-semibold text-center mb-4">
-              Doctor Registration
+            <h2 className="text-center text-xl mb-4">
+              {authMode === "login" ? "Login" : "Sign Up"}
             </h2>
 
-            <form className="flex flex-col gap-3">
+            <form onSubmit={handleAuthSubmit} className="flex flex-col gap-3">
               <input
-                className="border p-2 rounded-md"
-                placeholder="Full Name"
-              />
-              <input
-                className="border p-2 rounded-md"
-                placeholder="Speciality"
-              />
-              <input
-                className="border p-2 rounded-md"
-                placeholder="Experience (years)"
-              />
-              <input className="border p-2 rounded-md" placeholder="Email" />
-              <input className="border p-2 rounded-md" placeholder="Fee (Rs)" />
-
-              <button
-                onClick={checkForm}
-                className="bg-green-500 text-white py-2 rounded-md hover:bg-green-600"
-              >
-                Submit Application
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* {signin && (
-        <div
-          className="h-screen z-100 w-screen inset-0 fixed flex justify-center items-center bg-black/80"
-          ref={closeModal}
-        >
-          <div
-            className={`relative inner-modal h-80 w-90 rounded-xl bg-gray-800 text-white flex justify-center items-center ${loggedin ? "h-96 w-96" : "h-80 w-90"} `}
-          >
-            <h1 className="absolute top-3 font-bold text-2xl ">
-              {loggedin ? (
-                "Create an account"
-              ) : (
-                <>
-                  Login to <span className="text-green-600">Medicare</span>
-                </>
-              )}
-            </h1>
-            <div
-              onClick={loginModal}
-              className="absolute right-2 top-2 text-xl h-8 w-8 text-center cursor-default flex justify-center items-center rounded-full hover:font-semibold hover:scale-105 transition"
-            >
-              x
-            </div>
-
-            <form onSubmit={SignUp} className="flex flex-col gap-2 mt-8 w-70">
-              <label htmlFor="email">Email:</label>
-              <input
-                className=" border-1 rounded-sm px-2 text-base py-2"
-                type="text"
-                placeholder="Enter Email"
-                id="email"
                 name="email"
-                value={signUp.email}
+                value={authForm.email}
                 onChange={handleChange}
+                placeholder="Email"
+                className="p-2 rounded border-2 border-white text-white"
               />
-              <label htmlFor="pass">Password:</label>
+
               <div className="relative">
                 <input
-                  className="border border-gray-400 rounded-md pr-10 px-3 py-2 w-full focus:outline-none focus:border-green-500"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter Password"
-                  id="pass"
                   name="password"
-                  value={signUp.password}
+                  value={authForm.password}
                   onChange={handleChange}
+                  placeholder="Password"
+                  className="p-2 rounded text-white w-full border-2 border-white"
                 />
 
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                  className="absolute right-2 top-2"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
 
-              {loggedin && (
+              {authMode === "signup" && (
                 <div className="relative">
                   <input
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Retype Password"
-                    className="border border-gray-400 rounded-md pr-10 px-3 py-2 w-full focus:outline-none focus:border-green-500"
                     name="repassword"
-                    value={signUp.repassword}
+                    value={authForm.repassword}
                     onChange={handleChange}
+                    placeholder="Confirm Password"
+                    className="p-2 rounded text-gray w-full border-2 border-white"
                   />
+
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                    className="absolute right-2 top-2"
                   >
                     {showConfirmPassword ? (
                       <EyeOff size={18} />
@@ -292,41 +231,34 @@ function AppHeader() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-green-700 hover:bg-green-800 text-white font-semibold py-2 rounded-md flex justify-center items-center gap-2"
+                className="bg-green-600 py-2 rounded"
               >
-                {loading ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Please wait...
-                  </>
-                ) : loggedin ? (
-                  "Sign Up"
-                ) : (
-                  "Log In"
-                )}
+                {loading
+                  ? "Loading..."
+                  : authMode === "login"
+                    ? "Login"
+                    : "Sign Up"}
               </button>
 
               <p className="text-center text-sm">
-                {loggedin ? (
+                {authMode === "login" ? (
                   <>
-                    Already have an account?
+                    New user?{" "}
                     <span
-                      className="text-red-500 cursor-pointer hover:text-red-600"
-                      onClick={() => setLoggedin(false)}
+                      onClick={() => setAuthMode("signup")}
+                      className="text-red-400 cursor-pointer"
                     >
-                      {" "}
-                      Login
+                      Sign Up
                     </span>
                   </>
                 ) : (
                   <>
-                    New to account?
+                    Already have account?{" "}
                     <span
-                      className="text-red-500 cursor-pointer hover:text-red-600"
-                      onClick={() => setLoggedin(true)}
+                      onClick={() => setAuthMode("login")}
+                      className="text-red-400 cursor-pointer"
                     >
-                      {" "}
-                      Sign up
+                      Login
                     </span>
                   </>
                 )}
@@ -334,7 +266,7 @@ function AppHeader() {
             </form>
           </div>
         </div>
-      )} */}
+      )}
     </>
   );
 }

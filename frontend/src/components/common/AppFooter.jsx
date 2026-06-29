@@ -22,9 +22,9 @@ function AppFooter() {
 
         <div className="right-footer" style={styles.right}>
           <h4>Contact</h4>
-          <p style={styles.text}>📍 Kathmandu, Nepal</p>
-          <p style={styles.text}>📧 support@medicare.com</p>
-          <p style={styles.text}>📞 +977-98XXXXXXXX</p>
+          <p style={styles.text}><i className="fa-solid fa-location-dot"></i> Kathmandu, Nepal</p>
+          <p style={styles.text}><i className="fa-solid fa-envelope"></i> support@medicare.com</p>
+          <p style={styles.text}><i className="fa-solid fa-phone"></i> +977-98XXXXXXXX</p>
         </div>
 
       </div>

@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import Heropage from "./components/pages/Heropage";
-import Doctor from "./components/doctor/Doctor";
-import DoctorProfile from "./components/doctor/DoctorProfile";
-import AppHeader from "./components/common/AppHeader";
-import AppFooter from "./components/common/AppFooter";
-import HowItWorks from "./components/pages/Howitworks";
-import Symptom from "./components/pages/Symptom";
 import Department from "./components/pages/Department";
-
+import AppHeader from "./components/common/AppHeader"
+import Symptom from "./components/pages/Symptom"
+import Doctor from "./components/doctor/Doctor";
+import AppFooter from "./components/common/AppFooter"; 
+import HowItWorks from "./components/pages/Howitworks";
 
 function App() {
+  const departmentRef = useRef(null);
+
   return (
     <>
-
-      <AppHeader />
+<AppHeader />
       <Symptom />
-      <Heropage />
+      <Heropage departmentRef={departmentRef} />
       <Doctor />
-      <Department />
+
+      <div ref={departmentRef}>
+        <Department />
+      </div>
+
       <HowItWorks />
       <AppFooter />
     </>

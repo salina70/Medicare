@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/authUser.js";
 
+
 export const registerUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -37,6 +38,7 @@ export const registerUser = async (req, res, next) => {
         id: newUser._id,
         name: newUser.name,
         email: newUser.email,
+        role: newUser.role,
       },
     });
   } catch (error) {
@@ -46,7 +48,7 @@ export const registerUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({
@@ -82,7 +84,12 @@ export const loginUser = async (req, res, next) => {
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-console.log("Cookie set");
+    console.log("Cookie set");
+
+    if(existedUser.role === "admin"){
+      console.log("admin here")
+    }
+
     return res.status(200).json({
       status: "success",
       message: "user logged in",
@@ -91,16 +98,16 @@ console.log("Cookie set");
         id: existedUser._id,
         name: existedUser.name,
         email: existedUser.email,
-        isAdmin:existedUser.isAdmin
+        role: existedUser.role,
       },
     });
-
   } catch (error) {
     next(error);
   }
 };
+
 export const logoutUser = (req, res) => {
-  console.log("this is logout")
+  console.log("this is logout");
   console.log(req.cookies);
   res.clearCookie("token", {
     httpOnly: true,
@@ -109,7 +116,6 @@ export const logoutUser = (req, res) => {
   });
 
   return res.status(200).json({
-    
     status: "success",
     message: "Logged out successfully",
   });

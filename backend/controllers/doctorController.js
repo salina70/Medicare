@@ -15,6 +15,13 @@ export const getDoctorsBySpecialist = async (req, res) => {
   }
 };
 
+/**
+ * 
+ * @param {import("express").Request} req it is express request
+ * @param {import("express").Response} res 
+ * 
+ * lorem impsum
+ */
 export const getAllDoctors = async (req, res) => {
   try {
     const { specialist, search } = req.query;
@@ -23,6 +30,7 @@ export const getAllDoctors = async (req, res) => {
     if (specialist) {
       filter.specialist = specialist;
     }
+   
     if (search) {
       filter.$or = [
         { name: { $regex: search, $options: "i" } },
@@ -169,14 +177,8 @@ export const createDoctor = async (req, res) => {
 
 export const updateDoctor = async (req, res) => {
   try {
-    const {
-      fullName,
-      name,
-      specialty,
-      specialist,
-      password,
-      ...rest
-    } = req.body;
+    const { fullName, name, specialty, specialist, password, ...rest } =
+      req.body;
 
     const update = {
       ...rest,
@@ -234,3 +236,4 @@ export const deleteDoctor = async (req, res) => {
     });
   }
 };
+

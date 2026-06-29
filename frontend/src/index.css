@@ -319,7 +319,3 @@ input:-webkit-autofill:focus {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
-.h-screen{
-  width: 82vw;
-}
