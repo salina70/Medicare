@@ -12,7 +12,7 @@ import { Navigate, Outlet } from "react-router-dom";
 export function CheckAdmin() {
   const storedLogin = localStorage.getItem("token");
   console.log(storedLogin)
-  const loginData = storedLogin ? JSON.parse(storedLogin) : null;
+  const loginData = storedLogin ? storedLogin : null;
 console.log(loginData)
 
   if (!loginData) return <Navigate to="/dashboard/admin" />;

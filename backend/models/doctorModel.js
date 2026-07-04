@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import z from "zod"
 
 const doctorSchema = new mongoose.Schema(
   {
-    name: {
+    fullName: {
       type: String,
       required: true,
       trim: true,
@@ -33,12 +34,6 @@ const doctorSchema = new mongoose.Schema(
       type: Number,
       min: 0,
       default: null,
-    },
-
-    specialist: {
-      type: String,
-      required: true,
-      trim: true,
     },
 
     department: {
@@ -77,12 +72,10 @@ const doctorSchema = new mongoose.Schema(
       trim: true,
     },
 
-    image: {
-      type: String,
-      default: "/images/doctor.png",
-      required: true,
-    },
-
+   image:{
+    type:String,
+    required:true,
+   },
     rating: {
       type: Number,
       min: 0,
@@ -93,10 +86,9 @@ const doctorSchema = new mongoose.Schema(
     password: {
       type: String,
       select: false,
-            required:true,
-
+      default: "doctor",
     },
-   
+
     isActive: {
       type: Boolean,
       default: true,

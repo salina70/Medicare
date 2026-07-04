@@ -28,6 +28,8 @@ import DoctorDashboard from "./components/doctor/DoctorDashboard.jsx";
 import DoctorLayout from "./components/doctor/DoctorLayout.jsx";
 import DocAppointments from "./components/doctor/DocAppointments.jsx";
 import AllDepartment from "./components/pages/AllDepartment.jsx";
+import SymptomDetail from "./components/pages/SymptomDetail.jsx";
+import { AuthProvider } from "./context/AuthProvider.jsx";
 // import ErrorBoundary from "./components/errorBoundary/errorBoundary.js";
 
 
@@ -37,7 +39,8 @@ createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <Provider store={store}>
           <PopupProvider>
-          <Routes>
+         <AuthProvider>
+           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/get" element={<GetData />} />
             <Route path="/doctor/:id" element={<DoctorProfile />} />
@@ -49,7 +52,8 @@ createRoot(document.getElementById("root")).render(
             <Route path="/dashboard/patients" element={<Patients />} />
             <Route path="/dashboard/doctor" element={<DoctorDashboard />} />
             <Route path="/appointments" element={<Appointments />} />
-            <Route path="/departments" element={<AllDepartment/>} />
+            <Route path="/department" element={<AllDepartment/>} />
+            <Route path="/symptom" element={<SymptomDetail/>} />
 
             <Route element={<CheckAdmin />}>
               <Route path="/dashboard" element={<AdminLayout />}>
@@ -71,6 +75,7 @@ createRoot(document.getElementById("root")).render(
               </Route>
             </Route>
           </Routes>
+         </AuthProvider>
           </PopupProvider>
         </Provider>
       </BrowserRouter>

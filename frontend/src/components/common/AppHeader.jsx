@@ -4,25 +4,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import { PopupContent } from "../popup/Popup";
-import { usePopup } from "../../context/popupContext";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 
 function AppHeader() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isPopupOpen, setisPopupOpen] = useState(false);
+const [isPopupOpen, setisPopupOpen] = useState(false)
   const [authMode, setAuthMode] = useState(null); // "login" | "signup" | null
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { axios } = useAxios();
 
-  // const user = useSelector((state) => state.auth.user);
+  const userRole = useSelector((state) => state.auth.user);
+ 
 
-  const user = JSON.parse(localStorage.getItem("token"));
-  console.log(user);
+console.log(userRole)
+
+  const user = localStorage.getItem("token");
+console.log(user)
   const [authForm, setAuthForm] = useState({
     email: "",
     password: "",
@@ -85,20 +87,10 @@ function AppHeader() {
     navigate("/dashboard/admin");
   };
 
-  const {toggle} = usePopup()
-
-  return <>
-  <button onClick={toggle}>show popup</button>
-  <Popup>
-    <PopupContent>
-      Hello worl
-    </PopupContent>
-  </Popup>
-  </>
-
-  // const [logoutPopup, setlogoutPopup] = useState(false)
+// const [logoutPopup, setlogoutPopup] = useState(false)
   return (
     <>
+ 
       {/* NAVBAR */}
       <div className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2">
         <div className="font-semibold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
@@ -111,19 +103,18 @@ function AppHeader() {
         />
 
         <div>
+        
           {user ? (
             <div className="flex gap-3">
               <button
                 onClick={() => {
-                  const confirmLogout = window.confirm(
-                    "Are you sure you want to logout?",
-                  );
-                  if (confirmLogout) {
-                    setisPopupOpen(true);
-                    localStorage.clear("token");
+                  const confirmLogout = window.confirm("Are you sure you want to logout?")
+             if(confirmLogout){
+              setisPopupOpen(true)
+                 localStorage.clear("token")
 
-                    navigate("/");
-                  }
+                  navigate("/");
+             }
                 }}
                 className="bg-red-500 px-4 py-1 rounded"
               >
@@ -131,17 +122,17 @@ function AppHeader() {
               </button>
 
               <button
-                onClick={() => {
-                  if (user.role === "admin") {
-                    navigate("/dashboard/admin");
-                  } else if (user.role === "patient") {
-                    navigate("/dashboard/users");
-                  } else {
-                    navigate("/dashboard/doctor");
-                  }
-                }}
-                className="bg-green-500 px-4 py-1 rounded"
-              >
+              onClick={()=>{
+                console.log(userRole.role)
+                if(userRole.role === "admin"){
+                  navigate("/dashboard/admin")
+                }else if(userRole.role === "patient"){
+                  navigate("/dashboard/users")
+                }else{
+                  navigate("/dashboard/doctor")
+                }
+              }}
+              className="bg-green-500 px-4 py-1 rounded">
                 Dashboard
               </button>
             </div>
@@ -150,15 +141,13 @@ function AppHeader() {
               onClick={() => navigate("/login")}
               className="bg-green-500 text-black px-4 py-1 rounded"
             >
-              Sign in
+            Sign in
             </button>
           )}
         </div>
       </div>
 
-      <Popup open={isPopupOpen} onClose={() => isPopupOpen(false)} modal>
-        <button onClick={() => setisPopupOpen(false)}>Close</button>
-      </Popup>
+
 
       {/* MODAL */}
       {authMode && (
@@ -229,6 +218,7 @@ function AppHeader() {
               )}
 
               <button
+              
                 type="submit"
                 disabled={loading}
                 className="bg-green-600 py-2 rounded"

@@ -18,7 +18,7 @@ function Heropage({departmentRef}) {
 
   // const user = useSelector((state) => state.auth.user);
   // console.log(user);
-  const user = JSON.parse(localStorage.getItem("token"));
+  const user = localStorage.getItem("token");
   console.log(user);
   const [formData, setFormData] = useState({
     dateTime: "",
@@ -136,7 +136,7 @@ function Heropage({departmentRef}) {
         </div>
         <div>
           <img
-            src="/images/doctor.png"
+            src="../public/doctor.png"
             alt=""
             className="w-full max-w-md mx-auto absolute top-36"
           />

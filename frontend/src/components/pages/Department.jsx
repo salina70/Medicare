@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
-import axios from "axios";
-import toast from "react-hot-toast"
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Department() {
   const departments = [
@@ -22,14 +21,6 @@ function Department() {
     { name: "Urology", icon: "fa-solid fa-droplet" },
     { name: "Radiology", icon: "fa-solid fa-x-ray" },
   ];
-  const specificDoctor =  async () => {
-try{
-      const res = await axios.get(`http://localhost:8000/department/${name}`);
-      console.log(res.data)
-}catch(error){
-toast.error(error.response?.data?.message || "something went wrong")
-}
-  }
   return (
     <>
       <div  className="mb-18 mt-10 mx-4">
@@ -41,14 +32,14 @@ toast.error(error.response?.data?.message || "something went wrong")
         <div className="dept-div flex flex-wrap gap-8 mt-13 justify-center">
           {departments.map((dept, ind) => {
             return (
-              <div
-              onClick={specificDoctor}
+              <Link
+              to={`/department?name=${dept.name}`}
                 className="department border gap-4 pointer border-green-400 rounded-xl flex flex-col w-40 h-auto p-4 justify-center items-center"
                 key={ind}
               >
                 <i className={`${dept.icon} text-green-600 dept-icon`}> </i>
                 <p className="dept-name">{dept.name}</p>
-              </div>
+              </Link>
             );
           })}
         </div>

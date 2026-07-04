@@ -29,7 +29,7 @@ function Doctor() {
     // useAxios creates the client for this component; this load should run once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-const user = JSON.parse(localStorage.getItem("token"));
+const user = localStorage.getItem("token");
 
   return (
     <>
@@ -50,7 +50,6 @@ const user = JSON.parse(localStorage.getItem("token"));
             const id = doc._id || doc.id;
             const specialty = doc.specialist || doc.specialty;
             const fee = doc.consultationFee || doc.fee;
-
             return (
               <div key={id} className="dr-card mx-1/4 w-50 relative">
                 <Link to={`/doctor/${id}`}>

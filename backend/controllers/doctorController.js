@@ -28,7 +28,7 @@ export const getAllDoctors = async (req, res) => {
 
     let filter = {};
     if (specialist) {
-      filter.specialist = specialist;
+      filter.specialist = specialist; 
     }
    
     if (search) {
@@ -105,13 +105,10 @@ export const createDoctor = async (req, res) => {
   try {
     const {
       fullName,
-      name,
       email,
       phone,
       gender,
       age,
-      specialty,
-      specialist,
       department,
       experience,
       qualification,
@@ -121,11 +118,13 @@ export const createDoctor = async (req, res) => {
       image,
       password,
     } = req.body;
+    console.log(req.body);
+    
 
-    const doctorName = (name || fullName || "").trim();
-    const doctorSpecialist = (specialist || specialty || "").trim();
+  
+    // const doctorSpecialist = (specialist || specialty || "").trim();
 
-    if (!doctorName || !email || !doctorSpecialist || !description) {
+    if (!fullName || !email || !department|| !description) {
       return res.status(400).json({
         success: false,
         message: "Name, email, specialist, and description are required",
@@ -141,19 +140,18 @@ export const createDoctor = async (req, res) => {
     }
 
     const doctorData = {
-      name: doctorName,
+      fullName,
       email,
       phone,
       gender,
       age: age === "" ? null : age,
-      specialist: doctorSpecialist,
       department,
       experience,
       qualification,
       consultationFee,
       address,
       description,
-      image,
+      image: req.file ? req.file.filename : ""
     };
 
     if (password) {

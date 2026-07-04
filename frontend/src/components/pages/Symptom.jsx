@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Symptom() {
   const [showLeft, setshowLeft] = useState(true);
@@ -75,6 +77,10 @@ function Symptom() {
     { name: "Swelling", icon: "fa-solid fa-hand" },
   ];
 
+
+
+
+
   return (
     <div className="symptoms relative mt-10">
       {/* Left Button */}
@@ -88,15 +94,24 @@ function Symptom() {
 
       {/* Scroll Container */}
       <div ref={scrollRef} className="flex gap-4 overflow-hidden pr-12 pl-10 sym">
-        {symptoms.map((sym, index) => (
-          <div 
+        {symptoms.map((sym, index) => {
+          const res = sym.name.toLowerCase().replace(/\s+/g, "-");
+      return (
+            
+          <Link
+          // onClick={async()=>{
+          //   const res = await axios.get("http://localhost:8000/api/doctors")
+          //   console.log(res)
+          // }}
+          to={`symptom?name=${res}`}
             key={index}
             className="flex items-center gap-2 border border-gray-600 px-3 py-2 rounded-xl cursor-pointer transition flex-shrink-0"
           >
             <i className={`${sym.icon} text-green-500`}></i>
             <span className="text-xs">{sym.name}</span>
-          </div>
-        ))}
+          </Link>
+      )
+})}
       </div>
 
       {/* Right Button */}

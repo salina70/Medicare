@@ -11,53 +11,87 @@ export default function AddDoctor() {
     email: "",
     phone: "",
     gender: "",
-    specialty: "",
-    role: "",
+    role: "doctor",
     department: "",
     experience: "",
     qualification: "",
     consultationFee: "",
     address: "",
     description: "",
-    image: "",
+    image: null,
     password: "",
   });
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
+
+
+
   const handleChange = (e) => {
-    setDoctor({ ...doctor, [e.target.name]: e.target.value });
-  };
+    const { name, value, files } = e.target;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const result = doctorSchema.safeParse(doctor);
-
-    if (!result.success) {
-      const fieldErrors = {};
-      result.error.issues.forEach((err) => {
-        fieldErrors[err.path[0]] = err.message;
+    if (name === "image") {
+      setDoctor({
+        ...doctor,
+        image: files[0],
       });
-
-      setErrors(fieldErrors);
-      return;
-    }
-
-    setErrors({});
-
-    try {
-      setLoading(true);
-      await axios.post("/doctors", result.data);
-      alert("Doctor added successfully");
-      navigate("/dashboard/doctors");
-    } catch (error) {
-      alert(error.response?.data?.message || "Unable to add doctor");
-    } finally {
-      setLoading(false);
+    } else {
+      setDoctor({
+        ...doctor,
+        [name]: value,
+      });
     }
   };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log(doctor)
+  
+  const formData = new FormData();
+
+formData.append("fullName", doctor.fullName);
+formData.append("email", doctor.email);
+formData.append("phone", doctor.phone);
+formData.append("gender", doctor.gender);
+formData.append("role", doctor.role);
+formData.append("department", doctor.department);
+formData.append("experience", doctor.experience);
+formData.append("qualification", doctor.qualification);
+formData.append("consultationFee", doctor.consultationFee);
+formData.append("address", doctor.address);
+formData.append("description", doctor.description);
+formData.append("password", doctor.password);
+formData.append("image", doctor.image);
+
+
+  // const result = doctorSchema.safeParse(doctor);
+
+  // console.log(result)
+  // if (!result.success) {
+  //   const fieldErrors = {};
+
+  //   result.error.issues.forEach((err) => {
+  //     fieldErrors[err.path[0]] = err.message;
+  //   });
+
+  //   setErrors(fieldErrors);
+  //   return;
+  // }
+
+  // setErrors({});
+
+  try {
+    setLoading(true);
+
+    await axios.post("/doctors/create", formData);
+    alert("Doctor added successfully");
+    navigate("/dashboard/doctors");
+  } catch (error) {
+    alert(error.response?.data?.message || "Unable to add doctor");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="p-6 bg-gray-900 min-h-screen text-sm text-white">
@@ -65,6 +99,8 @@ export default function AddDoctor() {
         <h1 className="text-2xl font-bold mb-6">Add New Doctor</h1>
 
         <form
+          method="POST"
+        encType="multipart/form-data"
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-5"
         >
@@ -133,22 +169,22 @@ export default function AddDoctor() {
           <div>
             <label>Specialty</label>
             <select
-              name="specialty"
-              value={doctor.specialty}
+              name="department"
+              value={doctor.department}
               onChange={handleChange}
               className="w-full border border-gray-700 bg-gray-800 p-3 rounded"
             >
-              <option value="">Select Specialty</option>
-              <option>Cardiologist</option>
-              <option>Neurologist</option>
-              <option>Dermatologist</option>
-              <option>Ophthalmologist</option>
-              <option>Pediatrician</option>
-              <option>Orthopedic</option>
-              <option>General Physician</option>
+              <option value="">Select Department</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="Neurology">Neurology</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Ophthalmology">Ophthalmology</option>
+              <option value="Pediatrician">Pediatrician</option>
+              <option value="Orthopedic">Orthopedic</option>
+              <option value="General Physician">General Physician</option>
             </select>
             {errors.specialty && (
-              <p className="text-red-500 text-sm">{errors.specialty}</p>
+              <p className="text-red-500 text-sm">{errors.department}</p>
             )}
           </div>
 
@@ -196,9 +232,6 @@ export default function AddDoctor() {
             )}
           </div>
 
-       
-
-
           {/* Address */}
           <div className="md:col-span-2">
             <label>Address</label>
@@ -229,14 +262,16 @@ export default function AddDoctor() {
 
           {/* Image */}
           <div>
-            <label>Image URL</label>
-            <input
-              name="image"
-              value={doctor.image}
-              onChange={handleChange}
-              placeholder="/images/dr1.jpg"
-              className="w-full border border-gray-700 bg-gray-800 p-3 rounded"
-            />
+            <div>
+              <label>Doctor Image</label>
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleChange}
+                className="w-full border border-gray-700 bg-gray-800 p-3 rounded"
+              />
+            </div>
           </div>
 
           {/* Password */}
@@ -257,6 +292,7 @@ export default function AddDoctor() {
           {/* Submit */}
           <div className="md:col-span-2 flex justify-end">
             <button
+              type="submit"
               disabled={loading}
               className="bg-blue-600 disabled:bg-blue-400 text-white px-6 py-3 rounded"
             >

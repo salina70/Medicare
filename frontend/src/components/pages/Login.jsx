@@ -80,11 +80,11 @@ function Login() {
         formData,
       );
       console.log(finalformData);
-      localStorage.setItem("token", JSON.stringify(finalformData.data.token));
-   dispatch(loginUser())
+      localStorage.setItem("token", finalformData.data.token);
+   dispatch(loginUser(finalformData.data.user))
       const roleData = finalformData.data?.user?.role;
       console.log(typeof roleData);
-      localStorage.setItem("role", JSON.stringify(roleData));
+      localStorage.setItem("role", roleData);
 
       if (roleData.trim() === "admin") {
         navigate("/dashboard/admin");

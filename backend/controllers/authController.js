@@ -3,7 +3,7 @@ import { z } from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/authUser.js";
-
+import session from "../models/sessionModel.js";
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -19,7 +19,7 @@ export const registerUser = async (req, res, next) => {
 
     if (existedUser)
       return res.status(400).json({
-        staus: "failure",
+        status: "failure",
         message: "user already existed",
       });
 
@@ -48,7 +48,6 @@ export const registerUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({
@@ -78,16 +77,20 @@ export const loginUser = async (req, res, next) => {
       { expiresIn: "7d" },
     );
 
+    await session.create({
+      user_id: existedUser._id,
+      token,
+    });
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: false, // set true in production (HTTPS)
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    console.log("Cookie set");
 
-    if(existedUser.role === "admin"){
-      console.log("admin here")
+    if (existedUser.role === "admin") {
+      console.log("admin here");
     }
 
     return res.status(200).json({
@@ -106,9 +109,18 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-export const logoutUser = (req, res) => {
-  console.log("this is logout");
-  console.log(req.cookies);
+export const logoutUser = async (req, res) => {
+  //     const userId = req.user.id;
+
+  // const exixtingSession = await session.findOne({
+  //   user_id: userId,
+  //   deleted_at: null,
+  // });
+  // if (exixtingSession) {
+  //   return res.status(409).json({
+  //     message: "user logged in another device",
+  //   });
+  // }
   res.clearCookie("token", {
     httpOnly: true,
     secure: false, // set true in production (HTTPS)
