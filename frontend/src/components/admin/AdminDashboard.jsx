@@ -14,6 +14,8 @@ function AdminDashboard() {
     { name: "Add Doctor", path: "/dashboard/add-doctor" },
     { name: "View Patients", path: "/dashboard/patients" },
     { name: "Appointments", path: "/dashboard/appointments" },
+    {name: "Add Symptom" , path:"/dashboard/symptoms"},
+    {name:"Add Department", path:"/dashboard/departments"}
   ];
 
   useEffect(() => {

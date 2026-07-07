@@ -1,13 +1,11 @@
-import react, { useState } from 'react'
+import React from 'react'
 
-
-function SearchComponent(){
-    const [val, setval] = useState([])
-    return (
-       <>
-     
-       </>
-    )
+function SearchComponent() {
+  return (
+    <>
+    
+    </>
+  )
 }
 
-export default SearchComponent;
+export default SearchComponent

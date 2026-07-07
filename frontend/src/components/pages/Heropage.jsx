@@ -4,6 +4,7 @@ import { useAxios } from "../../lib/provider/axios";
 import { useNavigate } from "react-router-dom";
 import Department from "./Department";
 import { current } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 // import { requiresAuth } from "../../../../backend/middlewares/requiresAuth";
 
 function Heropage({departmentRef}) {
@@ -16,8 +17,8 @@ function Heropage({departmentRef}) {
 
   const { axios } = useAxios();
 
-  // const user = useSelector((state) => state.auth.user);
-  // console.log(user);
+  const user1 = useSelector((state) => state.auth.user);
+  console.log(user1);
   const user = localStorage.getItem("token");
   console.log(user);
   const [formData, setFormData] = useState({

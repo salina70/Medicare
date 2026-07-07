@@ -15,6 +15,7 @@ function Doctor() {
     const fetchDoctors = async () => {
       try {
         const res = await axios.get("/doctors");
+        console.log(res)
         if (res.data.doctors?.length) {
           setDoctors(
             res.data.doctors.filter((doctor) => doctor.isActive !== false),
@@ -55,7 +56,7 @@ const user = localStorage.getItem("token");
                 <Link to={`/doctor/${id}`}>
                   <div className="relative group">
                     <img
-                      src={doc.image}
+                      src={`http://localhost:8000/uploads/${doc.image}`}
                       alt={doc.name}
                       className="h-40 w-full object-cover object-top"
                     />

@@ -14,7 +14,6 @@ router.get("/get", getAppointments);
 
 router.get("/doctors/:id", getAllDoctors);
 
-
 router.patch("/:id/status", updateStatus);
 
 export default router;

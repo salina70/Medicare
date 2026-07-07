@@ -9,6 +9,8 @@ export default function AdminLayout() {
     // { name: "Add Doctor", path: "/dashboard/add-doctor" },
     { name: "Patients", path: "/dashboard/patients" },
     { name: "Appointments", path: "/dashboard/appointments" },
+    {name:"Symptoms", path:"/dashboard/symptoms"},
+    {name:"Departments", path:"/dashboard/departments"}
   ];
 
   return (

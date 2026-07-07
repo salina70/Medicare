@@ -154,7 +154,6 @@ console.log(editingDoctor)
               className="w-full rounded-lg border border-gray-700 bg-gray-800 py-2 pl-10 pr-4 text-white outline-none sm:w-72"
             />
           </div>
-
           <button
            onClick={()=>nav("/dashboard/add-doctor")}
          

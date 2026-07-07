@@ -77,10 +77,6 @@ function Symptom() {
     { name: "Swelling", icon: "fa-solid fa-hand" },
   ];
 
-
-
-
-
   return (
     <div className="symptoms relative mt-10">
       {/* Left Button */}

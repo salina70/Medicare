@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import z from "zod"
+import z from "zod";
 
 const doctorSchema = new mongoose.Schema(
   {
@@ -34,6 +34,7 @@ const doctorSchema = new mongoose.Schema(
       type: Number,
       min: 0,
       default: null,
+      max: 60,
     },
 
     department: {
@@ -58,12 +59,14 @@ const doctorSchema = new mongoose.Schema(
       type: Number,
       min: 0,
       required: true,
+      max: 2000,
     },
 
     address: {
       type: String,
       trim: true,
       required: true,
+      default: "kathmandu",
     },
 
     description: {
@@ -71,11 +74,11 @@ const doctorSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
-   image:{
-    type:String,
-    required:true,
-   },
+    
+    image: {
+      type: String,
+      required: true,
+    },
     rating: {
       type: Number,
       min: 0,

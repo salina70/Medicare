@@ -1,5 +1,9 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+
+
+import express from "express";
+
 import cors from "cors";
 import connectDB from "./config/db.js";
 import authUser from "./routes/authUser.js";
@@ -9,9 +13,10 @@ import cookieParser from "cookie-parser";
 import { requiresAuth } from "./middlewares/requiresAuth.js";
 import appointmentRouter from "./routes/appointmentRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js"
+import mailRoute from "./routes/mailRoute.js"
 
-dotenv.config();
+
 
 const app = express();
 app.use("/uploads", express.static("uploads"));
@@ -51,6 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authUser);
 app.use("/api/appointment", appointmentRouter )
 
+app.use("/api/mail", mailRoute  )
 
 app.use("/api/users", [requiresAuth], async (req, res, next) => {
   try {

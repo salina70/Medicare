@@ -4,27 +4,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
-
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 function AppHeader() {
+  const [sidePopup, setSidePopup] = useState(false);
+  const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-const [isPopupOpen, setisPopupOpen] = useState(false)
+  const [isPopupOpen, setisPopupOpen] = useState(false);
   const [authMode, setAuthMode] = useState(null); // "login" | "signup" | null
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { axios } = useAxios();
 
   const userRole = useSelector((state) => state.auth.user);
- 
 
-console.log(userRole)
+  console.log(userRole);
+console.log(sidePopup);
 
   const user = localStorage.getItem("token");
-console.log(user)
+  console.log(user);
   const [authForm, setAuthForm] = useState({
     email: "",
     password: "",
@@ -87,10 +88,9 @@ console.log(user)
     navigate("/dashboard/admin");
   };
 
-// const [logoutPopup, setlogoutPopup] = useState(false)
+  // const [logoutPopup, setlogoutPopup] = useState(false)
   return (
     <>
- 
       {/* NAVBAR */}
       <div className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2">
         <div className="font-semibold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
@@ -103,18 +103,11 @@ console.log(user)
         />
 
         <div>
-        
           {user ? (
             <div className="flex gap-3">
               <button
                 onClick={() => {
-                  const confirmLogout = window.confirm("Are you sure you want to logout?")
-             if(confirmLogout){
-              setisPopupOpen(true)
-                 localStorage.clear("token")
-
-                  navigate("/");
-             }
+                  setModal(true);
                 }}
                 className="bg-red-500 px-4 py-1 rounded"
               >
@@ -122,17 +115,18 @@ console.log(user)
               </button>
 
               <button
-              onClick={()=>{
-                console.log(userRole.role)
-                if(userRole.role === "admin"){
-                  navigate("/dashboard/admin")
-                }else if(userRole.role === "patient"){
-                  navigate("/dashboard/users")
-                }else{
-                  navigate("/dashboard/doctor")
-                }
-              }}
-              className="bg-green-500 px-4 py-1 rounded">
+                onClick={() => {
+                  console.log(userRole.role);
+                  if (userRole.role === "admin") {
+                    navigate("/dashboard/admin");
+                  } else if (userRole.role === "patient") {
+                    navigate("/dashboard/users");
+                  } else {
+                    navigate("/dashboard/doctor");
+                  }
+                }}
+                className="bg-green-500 px-4 py-1 rounded"
+              >
                 Dashboard
               </button>
             </div>
@@ -141,13 +135,56 @@ console.log(user)
               onClick={() => navigate("/login")}
               className="bg-green-500 text-black px-4 py-1 rounded"
             >
-            Sign in
+              Sign in
             </button>
           )}
         </div>
       </div>
 
+      {modal && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-80 rounded-lg bg-white shadow-xl p-6">
+          <p className="mt-2 text-black">Are you sure you want to logout?</p>
 
+          <div className="mt-4 flex justify-end gap-3">
+            <button
+              className="px-4 py-2 rounded text-black bg-gray-200 hover:bg-gray-300"
+              onClick={() => {
+                setModal(false);
+              }}
+            >
+              Cancel
+            </button>
+
+            <button
+              disabled={loading}
+              className="px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 spin"
+              onClick={() => {
+                setLoading(true);
+
+                setTimeout(() => {
+                  localStorage.clear();
+                  navigate("/");
+                  setModal(false);
+                }, 2000);
+            
+
+                setTimeout(() => {
+                  setSidePopup(false);
+                }, 1000);
+              }}
+            >
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                  Logging out...
+                </div>
+              ) : (
+                "Logout"
+              )}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* MODAL */}
       {authMode && (
@@ -218,7 +255,6 @@ console.log(user)
               )}
 
               <button
-              
                 type="submit"
                 disabled={loading}
                 className="bg-green-600 py-2 rounded"
@@ -254,6 +290,16 @@ console.log(user)
                 )}
               </p>
             </form>
+          </div>
+        </div>
+      )}
+
+      {sidePopup && (
+        <div className="fixed top-5 right-3 z-50 transform rounded-lg bg-green-500 px-5 py-4 text-white shadow-xl transition-all duration-500 animate">
+          <div className="flex items-center gap-3">
+            <div>
+              <p className="text-sm">You have successfully logged out.</p>
+            </div>
           </div>
         </div>
       )}
