@@ -28,6 +28,8 @@ import DoctorLayout from "./components/doctor/DoctorLayout.jsx";
 import DocAppointments from "./components/doctor/DocAppointments.jsx";
 import AllDepartment from "./components/pages/AllDepartment.jsx";
 import SymptomDetail from "./components/pages/SymptomDetail.jsx";
+import PaymentSuccess from "./components/pages/PaymentSuccess.jsx";
+import PaymentFailure from "./components/pages/PaymentFailure.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import AddSymptom from "./components/admin/AddSymptom.jsx";
 import AddDepartment from "./components/admin/AddDepartment.jsx";
@@ -51,6 +53,8 @@ createRoot(document.getElementById("root")).render(
               <Route path="/all-doctors" element={<AllDoctor />} />
               <Route path="/department" element={<AllDepartment />} />
               <Route path="/symptom" element={<SymptomDetail />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
+              <Route path="/payment-failure" element={<PaymentFailure />} />
               <Route path="/get" element={<GetData />} />
 
               {/* ================= ADMIN ================= */}

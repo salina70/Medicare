@@ -15,6 +15,7 @@ import appointmentRouter from "./routes/appointmentRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js"
 import mailRoute from "./routes/mailRoute.js"
+import paymentRoutes from "./routes/paymentRoutes.js"
 
 
 
@@ -68,6 +69,8 @@ app.use("/api/users", [requiresAuth], async (req, res, next) => {
   }
 });
 app.use("/api/doctors", doctorRoutes);
+
+app.use("/api/payment", paymentRoutes);
 
 // app.use("/api/departments", )
 
