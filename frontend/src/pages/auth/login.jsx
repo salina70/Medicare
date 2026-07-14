@@ -30,18 +30,21 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      console.log(formData, "formData");
       const result = await dispatch(loginUser(formData)).unwrap();
-      console.log(result, "result");
-      const roleData = result.data?.user?.role;
-      console.log(typeof roleData);
-      localStorage.setItem("role", roleData);
+      console.log(result, "User");
 
-      if (roleData.trim() === "admin") {
-        navigate("/dashboard/admin");
-      } else if (roleData === "doctor") {
-        navigate("/dashboard/doctor");
-      } else {
-        navigate("/dashboard/users");
+      switch (result.user.role.trim().toLowerCase()) {
+        case "admin":
+          navigate("/dashboard/admin");
+          break;
+
+        case "doctor":
+          navigate("/dashboard/doctor");
+          break;
+
+        default:
+          navigate("/dashboard/users");
       }
     } catch (error) {
       console.log(error);

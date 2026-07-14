@@ -11,7 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DoctorProfile from "./components/doctor/DoctorProfile.jsx";
 
 // import LoginForm from "./pages/register.jsx";
-import Login from "./components/pages/Login.jsx";
+import Login from "./pages/auth/login.jsx";
 import Signup from "./components/pages/Signup.jsx";
 import AdminDashboard from "./components/admin/AdminDashboard.jsx";
 import AddDoctor from "./components/admin/AddDoctor.jsx";
