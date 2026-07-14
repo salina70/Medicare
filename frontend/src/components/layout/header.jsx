@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useSelector } from "react-redux";
+import { CiSearch } from "react-icons/ci";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Logo from "../ui/atoms/Logo";
+import Input from "../../components/ui/atoms/Input";
 
 function Header() {
   const [sidePopup, setSidePopup] = useState(false);
@@ -31,72 +34,18 @@ function Header() {
     setAuthForm({ ...authForm, [e.target.name]: e.target.value });
   };
 
-  // const handleAuthSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("dashboard");
-  //   try {
-  //     setLoading(true);
-  //     // SIGNUP
-  //     if (authMode === "signup") {
-  //       if (authForm.password !== authForm.repassword) {
-  //         alert("Passwords do not match");
-  //         return;
-  //       }
-  //       console.log(authForm);
-  //       await axios.post("/auth/register", authForm);
-  //       alert("Signup successful!");
-  //       setAuthMode("login");
-  //       setAuthForm({ email: "", password: "", repassword: "" });
-  //     }
-
-  //     // LOGIN
-  //     else if (authMode === "login") {
-  //       const res = await axios.post("/auth/login", {
-  //         email: authForm.email,
-  //         password: authForm.password,
-  //         role: authForm.role,
-  //       });
-
-  //       console.log(res.data);
-  //       setAuthMode(null);
-  //       if (res.role === "admin") {
-  //         navigate("/dashboard/admin");
-  //         return;
-  //       } else if (res.role === "doctor") {
-  //         navigate("/dashboard/doctor");
-  //         return;
-  //       } else {
-  //         navigate("/dashboard/users");
-  //         return;
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error.response?.data || error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleAuthSubmit = (e) => {
     e.preventDefault();
     console.log("login");
     navigate("/dashboard/admin");
   };
 
-  // const [logoutPopup, setlogoutPopup] = useState(false)
   return (
     <>
       {/* NAVBAR */}
       <div className="sticky top-0 z-40 flex my-4 items-center justify-between bg-[#16171D] px-4 py-2">
-        <div className="font-semibold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
-          Medicare
-        </div>
-
-        <input
-          className="border rounded-2xl px-3 py-1 w-[40%]"
-          placeholder="fever, cold, headache"
-        />
-
+        <Logo />
+        <Input rightIcon={<CiSearch />} />
         <div>
           {user ? (
             <div className="flex gap-3">
