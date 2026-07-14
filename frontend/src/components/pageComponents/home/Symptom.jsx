@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -89,25 +88,27 @@ function Symptom() {
       </button>
 
       {/* Scroll Container */}
-      <div ref={scrollRef} className="flex gap-4 overflow-hidden pr-12 pl-10 sym">
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-hidden pr-12 pl-10 sym"
+      >
         {symptoms.map((sym, index) => {
           const res = sym.name.toLowerCase().replace(/\s+/g, "-");
-      return (
-            
-          <Link
-          // onClick={async()=>{
-          //   const res = await axios.get("http://localhost:8000/api/doctors")
-          //   console.log(res)
-          // }}
-          to={`symptom?name=${res}`}
-            key={index}
-            className="flex items-center gap-2 border border-gray-600 px-3 py-2 rounded-xl cursor-pointer transition flex-shrink-0"
-          >
-            <i className={`${sym.icon} text-green-500`}></i>
-            <span className="text-xs">{sym.name}</span>
-          </Link>
-      )
-})}
+          return (
+            <Link
+              // onClick={async()=>{
+              //   const res = await axios.get("http://localhost:8000/api/doctors")
+              //   console.log(res)
+              // }}
+              to={`symptom?name=${res}`}
+              key={index}
+              className="flex items-center gap-2 border border-gray-600 px-3 py-2 rounded-xl cursor-pointer transition flex-shrink-0"
+            >
+              <i className={`${sym.icon} text-green-500`}></i>
+              <span className="text-xs">{sym.name}</span>
+            </Link>
+          );
+        })}
       </div>
 
       {/* Right Button */}

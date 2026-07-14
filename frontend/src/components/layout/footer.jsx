@@ -1,32 +1,42 @@
 import React from "react";
 
-function AppFooter() {
+function Footer() {
   return (
     <footer className="footer" style={styles.footer}>
       <div style={styles.container}>
-        
         <div className="left-footer" style={styles.left}>
           <h3 style={styles.logo}>MediCare</h3>
-          <p style={styles.text}>
-            Your trusted healthcare management system.
-          </p>
+          <p style={styles.text}>Your trusted healthcare management system.</p>
         </div>
 
         <div className="mid-footer" style={styles.center}>
           <h4>Quick Links</h4>
-          <a href="/" style={styles.link}>Home</a>
-          <a href="/about" style={styles.link}>About</a>
-          <a href="/services" style={styles.link}>Services</a>
-          <a href="/contact" style={styles.link}>Contact</a>
+          <a href="/" style={styles.link}>
+            Home
+          </a>
+          <a href="/about" style={styles.link}>
+            About
+          </a>
+          <a href="/services" style={styles.link}>
+            Services
+          </a>
+          <a href="/contact" style={styles.link}>
+            Contact
+          </a>
         </div>
 
         <div className="right-footer" style={styles.right}>
           <h4>Contact</h4>
-          <p style={styles.text}><i className="fa-solid fa-location-dot"></i> Kathmandu, Nepal</p>
-          <p style={styles.text}><i className="fa-solid fa-envelope"></i> support@medicare.com</p>
-          <p style={styles.text}><i className="fa-solid fa-phone"></i> +977-98XXXXXXXX</p>
+          <p style={styles.text}>
+            <i className="fa-solid fa-location-dot"></i> Kathmandu, Nepal
+          </p>
+          <p style={styles.text}>
+            <i className="fa-solid fa-envelope"></i> support@medicare.com
+          </p>
+          <p style={styles.text}>
+            <i className="fa-solid fa-phone"></i> +977-98XXXXXXXX
+          </p>
         </div>
-
       </div>
 
       <div style={styles.bottom}>
@@ -41,16 +51,15 @@ const styles = {
     backgroundColor: "#0f172a",
     color: "white",
     marginTop: "30px",
-  width: "100%",
-  
+    width: "100%",
   },
   container: {
     display: "flex",
-    
+
     justifyContent: "space-between",
     padding: "40px",
     flexWrap: "wrap",
-    gap:"2rem"
+    gap: "2rem",
   },
   left: {
     flex: "1",
@@ -89,4 +98,4 @@ const styles = {
   },
 };
 
-export default AppFooter;
+export default Footer;

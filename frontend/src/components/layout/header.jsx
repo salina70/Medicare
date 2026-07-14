@@ -1,28 +1,23 @@
-import { useAxios } from "../../lib/provider/axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../slice/authSlice";
+import { useSelector } from "react-redux";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
-function AppHeader() {
+function Header() {
   const [sidePopup, setSidePopup] = useState(false);
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isPopupOpen, setisPopupOpen] = useState(false);
   const [authMode, setAuthMode] = useState(null); // "login" | "signup" | null
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { axios } = useAxios();
 
   const userRole = useSelector((state) => state.auth.user);
 
   console.log(userRole);
-console.log(sidePopup);
+  console.log(sidePopup);
 
   const user = localStorage.getItem("token");
   console.log(user);
@@ -166,7 +161,6 @@ console.log(sidePopup);
                   navigate("/");
                   setModal(false);
                 }, 2000);
-            
 
                 setTimeout(() => {
                   setSidePopup(false);
@@ -307,4 +301,4 @@ console.log(sidePopup);
   );
 }
 
-export default AppHeader;
+export default Header;
