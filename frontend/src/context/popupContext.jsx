@@ -1,16 +1,17 @@
-
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const PopupContext = createContext();
 
-export const PopupProvider = ({children}) => {
-    const [isopen, setisopen] = useState(false)
-    
-    const toggle =  () => {
-setisopen(!isopen)
-    }
+export const PopupProvider = ({ children }) => {
+  const [isopen, setisopen] = useState(false);
 
-    return <PopupContext.Provider value={isopen, toggle}>{children}</PopupContext.Provider>
-}
+  const toggle = () => {
+    setisopen(!isopen);
+  };
 
-export const usePopup = () => useContext(PopupContext)
+  return (
+    <PopupContext.Provider value={{ isopen, toggle }}>
+      {children}
+    </PopupContext.Provider>
+  );
+};

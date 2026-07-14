@@ -9,10 +9,6 @@ import HowItWorks from "./components/pages/Howitworks";
 
 function App() {
   const departmentRef = useRef(null);
-  // useEffect(() => {
-  //   verifyUser();
-
-  // }, [])
 
   return (
     <>
