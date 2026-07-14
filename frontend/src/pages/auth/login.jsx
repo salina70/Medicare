@@ -30,7 +30,6 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData, "formData");
       const result = await dispatch(loginUser(formData)).unwrap();
       console.log(result, "User");
 

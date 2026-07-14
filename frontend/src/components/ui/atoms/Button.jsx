@@ -14,7 +14,7 @@ const buttonVariants = cva(
           "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 focus-visible:ring-emerald-400",
 
         outline:
-          "border border-emerald-200 bg-white text-emerald-700 hover:bg-emerald-50 focus-visible:ring-emerald-400",
+          "border border-emerald-200 bg-transparent text-emerald-700 hover:bg-emerald-50 focus-visible:ring-emerald-400",
 
         ghost:
           "text-emerald-700 hover:bg-emerald-50 focus-visible:ring-emerald-400",
