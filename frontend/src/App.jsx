@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Heropage from "./components/pages/Heropage";
 import Department from "./components/pages/Department";
 import AppHeader from "./components/common/AppHeader";
