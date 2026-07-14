@@ -35,6 +35,7 @@ import AddSymptom from "./components/admin/AddSymptom.jsx";
 import AddDepartment from "./components/admin/AddDepartment.jsx";
 import PatientLayout from "./components/patient/PatientLayout.jsx";
 import { ProtectedRoute } from "./middleware/ProtectedRoute.jsx";
+import AuthLayout from "./components/layout/auth.jsx";
 // import ErrorBoundary from "./components/errorBoundary/errorBoundary.js";
 
 createRoot(document.getElementById("root")).render(
@@ -47,8 +48,10 @@ createRoot(document.getElementById("root")).render(
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<App />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/" element={<AuthLayout />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+              </Route>
               <Route path="/doctor/:id" element={<DoctorProfile />} />
               <Route path="/all-doctors" element={<AllDoctor />} />
               <Route path="/department" element={<AllDepartment />} />

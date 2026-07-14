@@ -51,8 +51,11 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-900">
-      <form onSubmit={handleLogin} className="bg-gray-800 p-8 rounded-xl w-96">
+    <div className="min-h-screen flex justify-center items-center ">
+      <form
+        onSubmit={handleLogin}
+        className="bg-gray-800 p-8 m-2 rounded-xl w-full"
+      >
         <h1 className="text-2xl text-white font-bold mb-6">Login</h1>
 
         <input
