@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useAxios } from "../../lib/provider/axios";
+import { useAxios } from "../../../lib/provider/axios";
 // import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Department from "./Department";
@@ -7,10 +7,10 @@ import { current } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 // import { requiresAuth } from "../../../../backend/middlewares/requiresAuth";
 
-function Heropage({departmentRef}) {
+function Heropage({ departmentRef }) {
   const [open, setOpen] = useState(false);
   const nav = useNavigate();
-  
+
   const [specialist, setSpecialist] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
@@ -133,7 +133,6 @@ function Heropage({departmentRef}) {
           >
             View Departments
           </button>
-         
         </div>
         <div>
           <img
