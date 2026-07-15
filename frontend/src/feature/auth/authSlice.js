@@ -5,6 +5,7 @@ const storedUser = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   user: storedUser,
+  role: storedUser?.role,
   token: localStorage.getItem("token"),
   isAuthenticated: !!storedUser,
   loading: false,
@@ -38,6 +39,7 @@ const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.user = null;
+      state.role = null;
       state.token = null;
       state.isAuthenticated = false;
 
@@ -57,6 +59,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
+        state.user = action.payload.user.role;
         state.token = action.payload.token;
         state.isAuthenticated = true;
       })
