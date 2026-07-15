@@ -37,6 +37,7 @@ import PatientLayout from "./components/patient/PatientLayout.jsx";
 import { ProtectedRoute } from "./middleware/ProtectedRoute.jsx";
 import AuthLayout from "./components/layout/auth.jsx";
 import SimpleLayout from "./components/layout/simpleLayout.jsx";
+import DashboardLayout from "./components/layout/DashboardLayout.jsx";
 // import ErrorBoundary from "./components/errorBoundary/errorBoundary.js";
 
 createRoot(document.getElementById("root")).render(
@@ -59,7 +60,7 @@ createRoot(document.getElementById("root")).render(
 
                 {/* Patient*/}
                 <Route element={<ProtectedRoute allowedRoles={["patient"]} />}>
-                  <Route path="/dashboard" element={<PatientLayout />}>
+                  <Route path="/dashboard" element={<DashboardLayout />}>
                     <Route path="users" element={<PatientDashboard />} />
                     <Route path="symptom" element={<SymptomDetail />} />
                   </Route>
