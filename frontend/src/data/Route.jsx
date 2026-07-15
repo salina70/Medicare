@@ -1,4 +1,4 @@
-import { Home, CalendarDays, User, Settings } from "lucide-react";
+import { Home, CalendarDays, User, Settings, Stethoscope } from "lucide-react";
 
 export const PatientMenuItems = [
   {
@@ -10,6 +10,11 @@ export const PatientMenuItems = [
     name: "Appointments",
     path: "/dashboard/view-appointments",
     icon: CalendarDays,
+  },
+  {
+    name: "Find Doctors",
+    path: "/dashboard/find-doctors",
+    icon: Stethoscope,
   },
   {
     name: "Profile",
