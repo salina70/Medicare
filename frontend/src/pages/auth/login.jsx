@@ -3,7 +3,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../feature/auth/authSlice";
-import { useSelector } from "react-redux";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,8 +14,6 @@ function Login() {
     email: "",
     password: "",
   });
-  const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +28,7 @@ function Login() {
     e.preventDefault();
     try {
       const result = await dispatch(loginUser(formData)).unwrap();
+      console.log(result);
       console.log(result, "User");
 
       switch (result.user.role.trim().toLowerCase()) {
@@ -51,7 +49,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center ">
+    <div className="flex justify-center items-center ">
       <form
         onSubmit={handleLogin}
         className="bg-gray-800 p-8 m-2 rounded-xl w-full"

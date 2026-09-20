@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Signup() {
@@ -12,7 +12,7 @@ function Signup() {
     name: "",
     email: "",
     password: "",
-    repassword: "",
+    repassword:""
   });
 
   const handleChange = (e) => {
@@ -31,11 +31,11 @@ function Signup() {
       alert("Passwords do not match");
       return;
     }
-
+setloading(true)
     try {
       const res = await axios.post(
         "http://localhost:8000/api/auth/register",
-        formData,
+        formData
       );
       alert("Account is created. Please log in");
 
@@ -46,11 +46,13 @@ function Signup() {
       console.error(error);
 
       alert(error.response?.data?.message || "Something went wrong");
+    }finally{
+      setloading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center ">
+    <div className="flex justify-center items-center ">
       <form
         onSubmit={handleSignup}
         className="bg-gray-800 p-8 m-2 rounded-xl w-full"

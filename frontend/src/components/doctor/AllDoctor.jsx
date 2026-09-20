@@ -87,7 +87,7 @@ const { axios } = useAxios();
             loading="lazy"
               src={doc.image}
               alt={doc.name}
-              className="h-40 w-full object-cover object-top"
+              className="h-50 w-full object-cover"
             />
 
             {/* Rating */}
@@ -107,8 +107,11 @@ const { axios } = useAxios();
               {fee ? <p className="text-gray-400 text-sm">Rs {fee}</p> : null}
 
               <button onClick={()=>{if(!user){
-                confirm("Please log in!!")
+                const confirmed = confirm("Please log in!!");
+if(confirmed){
                 nav("/login")
+
+}
               } else {
                 nav(`/doctor/${id}`);
               }}} className="mt-2 w-full border border-green-600 text-green-600 py-1 rounded hover:bg-green-600 hover:text-white transition">

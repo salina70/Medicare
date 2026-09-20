@@ -56,7 +56,7 @@ const user = localStorage.getItem("token");
                 <Link to={`/doctor/${id}`}>
                   <div className="relative group">
                     <img
-                      src={`http://localhost:8000/uploads/${doc.image}`}
+                      src={doc.image}
                       alt={doc.name}
                       className="h-40 w-full object-cover object-top"
                     />

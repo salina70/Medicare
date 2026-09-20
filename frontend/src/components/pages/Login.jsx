@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useAxios } from "../../lib/provider/axios";
 import { Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loginUser, logout } from "../../slice/authSlice";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
@@ -18,15 +18,18 @@ function Login() {
   });
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-console.log(user)
-  // useEffect(() => {
-  //   if (!user) return;
+  console.log(user);
+  useEffect(() => {
+    if (!user) return;
 
-  //   const isAdmin =
-  //     typeof user.isAdmin === "string" ? user.isAdmin === "true" : user.isAdmin;
-
-  //   navigate(isAdmin ? "/dashboard/admin" : "/dashboard/users");
-  // }, [navigate, user]);
+    if (user.role === "admin") {
+      navigate("/dashboard/admin");
+    } else if (user.role === "doctor") {
+      navigate("/dashboard/doctor");
+    } else {
+      navigate("/dashboard/users");
+    }
+  }, [navigate, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,8 +39,6 @@ console.log(user)
       [name]: value,
     }));
   };
-
-  const { axios } = useAxios();
 
   // const handleLogin = async (e) => {
   //   e.preventDefault();
@@ -71,30 +72,75 @@ console.log(user)
   //   }
   // };
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:8000/api/auth/login",
+  //       formData
+  //     );
+
+  //     console.log(res.data);
+
+  //     localStorage.setItem("token", res.data.token);
+
+  //     dispatch(loginUser(res.data.user));
+
+  //     const roleData = res.data.user.role;
+
+  //     localStorage.setItem("role", roleData);
+
+  //     if (roleData === "admin") {
+  //       navigate("/dashboard/admin");
+  //     } else if (roleData === "doctor") {
+  //       navigate("/dashboard/doctor");
+  //     } else {
+  //       navigate("/dashboard/users");
+  //     }
+
+  //   } catch (error) {
+  //     console.log("ERROR:", error);
+  //     console.log("RESPONSE:", error.response?.data);
+  //   }
+  // };
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("hi");
+    setLoading(true);
+
     try {
-      const finalformData = await axios.post(
+      const result = await axios.post(
         "http://localhost:8000/api/auth/login",
         formData,
       );
-      console.log(finalformData);
-      localStorage.setItem("token", finalformData.data.token);
-   dispatch(loginUser(finalformData.data.user))
-      const roleData = finalformData.data?.user?.role;
-      console.log(typeof roleData);
-      localStorage.setItem("role", roleData);
+      console.log(result.data);
+      console.log("Login response:", result.user);
 
-      if (roleData.trim() === "admin") {
+      const { user, token } = result.data;
+      console.log(user, token);
+
+      // Save authentication data
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", user.role);
+      console.log(user.role);
+      // navigate("/dashboard/admin");
+      // Save user in Redux
+      dispatch(loginUser(user));
+
+      // Navigate based on role
+      if (user.role == "admin") {
         navigate("/dashboard/admin");
-      } else if (roleData === "doctor") {
+      } else if (user.role === "doctor") {
         navigate("/dashboard/doctor");
       } else {
         navigate("/dashboard/users");
       }
     } catch (error) {
-      console.log(error);
+      console.log("Login error:", error);
+      toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -3,14 +3,13 @@ import { NavLink, Outlet } from "react-router-dom";
 
 export default function AdminLayout() {
   const menuItems = [
-    { name: "Home", path: "/" },
     { name: "Dashboard", path: "/dashboard/admin" },
     { name: "Doctors", path: "/dashboard/doctors" },
     // { name: "Add Doctor", path: "/dashboard/add-doctor" },
     { name: "Patients", path: "/dashboard/patients" },
     { name: "Appointments", path: "/dashboard/appointments" },
-    {name:"Symptoms", path:"/dashboard/symptoms"},
-    {name:"Departments", path:"/dashboard/departments"}
+    {name:"Departments", path:"/dashboard/add-department"},
+    {name:"Logout", path:"/"}
   ];
 
   return (

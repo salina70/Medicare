@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-
 import express from "express";
 
 import cors from "cors";
@@ -13,11 +12,10 @@ import cookieParser from "cookie-parser";
 import { requiresAuth } from "./middlewares/requiresAuth.js";
 import appointmentRouter from "./routes/appointmentRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js"
-import mailRoute from "./routes/mailRoute.js"
-import paymentRoutes from "./routes/paymentRoutes.js"
-
-
+import adminRoutes from "./routes/adminRoutes.js";
+import mailRoute from "./routes/mailRoute.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import departmentRoutes from "./routes/departmentRoutes.js";
 
 const app = express();
 app.use("/uploads", express.static("uploads"));
@@ -29,35 +27,30 @@ const allowedOrigins = [
   "http://127.0.0.1:5174",
 ];
 
-// ✅ FIRST middleware
 app.use(
   cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
-    },
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
 );
 app.use(cookieParser());
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
 // routes
 
 //app.use("/api/doctor",  )
 
-
-// app.use("/api/admin", adminRoutes)
+app.use("/api/admin", adminRoutes);
 
 app.use("/api/auth", authUser);
-app.use("/api/appointment", appointmentRouter )
+app.use("/api/appointment", appointmentRouter);
 
-app.use("/api/mail", mailRoute  )
+app.use("/api/mail", mailRoute);
+
+// app.use("/api/departments", departmentRoutes);
 
 app.use("/api/users", [requiresAuth], async (req, res, next) => {
   try {
@@ -72,7 +65,7 @@ app.use("/api/doctors", doctorRoutes);
 
 app.use("/api/payment", paymentRoutes);
 
-// app.use("/api/departments", )
+app.use("/api/departments", departmentRoutes)
 
 // test routes
 app.get("/", (req, res) => {

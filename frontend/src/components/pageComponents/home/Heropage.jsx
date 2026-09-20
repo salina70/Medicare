@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAxios } from "../../../lib/provider/axios";
-import Department from "./Department";
+// import { useAxios } from "../../../lib/provider/axios";
 import { useSelector } from "react-redux";
+import axios from 'axios'
 
 function Heropage({ departmentRef }) {
   const [open, setOpen] = useState(false);
@@ -10,7 +10,7 @@ function Heropage({ departmentRef }) {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
 
-  const { axios } = useAxios();
+  // const { axios } = useAxios();
 
   const user1 = useSelector((state) => state.auth.user);
   console.log(user1);
@@ -80,9 +80,10 @@ function Heropage({ departmentRef }) {
       setFormData({
         dateTime: "",
         age: "",
-        email: "",
         phone: "",
         description: "",
+          email: user?.email || "",
+  patient_id: user?.id || "",
       });
 
       setOpen(false);
@@ -131,8 +132,7 @@ function Heropage({ departmentRef }) {
         </div>
         <div>
           <img
-            src="../public/doctor.png"
-            alt=""
+src="public/doctor.png"            alt=""
             className="w-full max-w-md mx-auto absolute top-36"
           />
         </div>
@@ -227,7 +227,7 @@ function Heropage({ departmentRef }) {
                     key={doctor._id}
                     value={doctor._id}
                   >
-                    {doctor.name}
+                    {doctor.fullName}
                   </option>
                 ))}
               </select>

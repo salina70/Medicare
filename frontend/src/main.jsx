@@ -11,11 +11,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DoctorProfile from "./components/doctor/DoctorProfile.jsx";
 
 // import LoginForm from "./pages/register.jsx";
-import Login from "./pages/auth/login.jsx";
+import Login from "./components/pages/Login.jsx";
 import Signup from "./components/pages/Signup.jsx";
 import AdminDashboard from "./components/admin/AdminDashboard.jsx";
 import AddDoctor from "./components/admin/AddDoctor.jsx";
-import Patients from "./components/admin/Patients.jsx";
+import Patients from "./components/admin/AddPatient.jsx";
 import { PatientDashboard } from "./components/patient/PatientDashboard.jsx";
 import { store } from "./redux/store.js";
 import AllDoctor from "./components/doctor/AllDoctor.jsx";
@@ -38,8 +38,11 @@ import { ProtectedRoute } from "./middleware/ProtectedRoute.jsx";
 import AuthLayout from "./components/layout/auth.jsx";
 import SimpleLayout from "./components/layout/simpleLayout.jsx";
 import DashboardLayout from "./components/layout/DashboardLayout.jsx";
-import PatientHome from "./pages/dashboard/patientHome.jsx";
+import PatientHome from "./pages/dashboard/PatientHome.jsx";
 import FindDoctors from "./pages/dashboard/FindDoctor.jsx";
+import DepartmentDoctor from "./components/pageComponents/home/DepartmentDoctor.jsx";
+import ConsultForm from "./components/pageComponents/home/consultForm.jsx";
+import Form from "./components/pageComponents/home/ConsForm.jsx";
 // import ErrorBoundary from "./components/errorBoundary/errorBoundary.js";
 
 createRoot(document.getElementById("root")).render(
@@ -58,6 +61,7 @@ createRoot(document.getElementById("root")).render(
                 <Route element={<AuthLayout />}>
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
+                  {/* <Route path="/form" element={<Form />} /> */}
                 </Route>
 
                 {/* Patient*/}
@@ -74,6 +78,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="/doctor/:id" element={<DoctorProfile />} />
               <Route path="/all-doctors" element={<AllDoctor />} />
               <Route path="/department" element={<AllDepartment />} />
+              <Route path="/departments/:id" element={<DepartmentDoctor />} />
               <Route path="/symptom" element={<SymptomDetail />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
               <Route path="/payment-failure" element={<PaymentFailure />} />
@@ -82,13 +87,15 @@ createRoot(document.getElementById("root")).render(
               {/* ================= ADMIN ================= */}
               <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
                 <Route path="/dashboard" element={<AdminLayout />}>
+                  <Route path="add-dashboard" element={<AddDepartment />} />
                   <Route path="admin" element={<AdminDashboard />} />
                   <Route path="patients" element={<Patients />} />
                   <Route path="doctors" element={<AdminDoctors />} />
                   <Route path="add-doctor" element={<AddDoctor />} />
                   <Route path="appointments" element={<Appointments />} />
                   <Route path="symptoms" element={<AddSymptom />} />
-                  <Route path="departments" element={<AddDepartment />} />
+                  {/* <Route path="departments" element={<AddDepartment />} /> */}
+                  <Route path="add-department" element={<AddDepartment />} />
                 </Route>
               </Route>
 

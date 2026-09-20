@@ -56,7 +56,7 @@ export const getAllDoctors = async (req, res) => {
 
 export const getDoctorById = async (req, res) => {
   try {
-    const doctor = await Doctor.findById(req.params.id);
+    const doctor = await Doctor.findById({department:req.params.id});
 
     if (!doctor) {
       return res.status(404).json({

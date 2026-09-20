@@ -6,6 +6,8 @@ import User from "../models/authUser.js";
 import session from "../models/sessionModel.js";
 
 export const registerUser = async (req, res, next) => {
+      console.log("register")
+
   try {
     const { name, email, password } = req.body;
     if (!email || !password || !name) {
@@ -91,6 +93,7 @@ export const loginUser = async (req, res, next) => {
 
     if (existedUser.role === "admin") {
       console.log("admin here");
+      
     }
 
     return res.status(200).json({
