@@ -44,7 +44,8 @@ import Doctor from "../models/doctorModel.js";
 
 export const getAllDepartments = async(req, res)=>{
   try{
-const result  = await department.find();
+const result  = await department.find({});
+console.log(result)
 res.send({
   status:true,
   message:result
@@ -56,9 +57,15 @@ res.send({
 }
 
 export const getEachDepartment = async (req, res) =>{
-const {id} = req.params;
-console.log(id)
-const data = await Doctor.find({department:id});
+const name = req.params.id;
+const data = await department.findOne({
+  name: { $regex: `^${name}$`, $options: "i" }
+});
+
+const id = data._id;
+
+const doctors = await Doctor.find({department:id});
+
 if(!data){
   return res.send({
 status:"failure",
@@ -66,9 +73,8 @@ message:"data failed",
   })
 }
 
-
 return res.send({
   status:"success",
-  message:data
+  message:doctors
 });
 }

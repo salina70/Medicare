@@ -26,7 +26,7 @@ function Department() {
           return (
             <div
               onClick={() => {
-                navigate(`/departments/${item._id}`);
+                navigate(`/departments/${item.name.toLowerCase()}`);
               }}
               className="px-6 text-sm cursor-default hover:bg-black hover:text-white hover:border-white hover:border-1 bg-white text-black flex justify-center items-center py-2 rounded-xl"
               key={idx}
