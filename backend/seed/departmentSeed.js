@@ -1,52 +1,34 @@
-import department from "../models/departmentmodel.js";
-import dotenv from 'dotenv';
 import mongoose from "mongoose";
+import {
+  HeartPulse,
+  Brain,
+  Stethoscope,
+  Eye,
+  Tooth,
+  ScanFace
+} from "lucide-react";
+import Department from "../models/Department";
 
-const departmentsData = [
-  {
-    icon: "❤️",
-    name: "Cardiology"
-  },
-  {
-    icon: "🧠",
-    name: "Neurology"
-  },
-  {
-    icon: "👶",
-    name: "Pediatrics"
-  },
-  {
-    icon: "🩺",
-    name: "General Medicine"
-  },
-  {
-    icon: "👩‍⚕️",
-    name: "Gynecology"
-  },
-  {
-    icon: "🧴",
-    name: "Dermatology"
-  },
-  {
-    icon: "👁️",
-    name: "Ophthalmology"
-  },
-  {
-    icon: "🦷",
-    name: "Dental"
-  }
-];
+const departmentData = [
+  {name:"Cardiologist", icon:HeartPulse},
+  {name:"Neurologist", icon:Brain},
+  {name:"General Medicine", icon:Stethoscope},
+  {name:"Opthalmologist", icon:Eye},
+  {name:"Dentist", icon:Tooth},
+  {name:"Dermatologist", icon:ScanFace}
+]
 
-const departmentSeed = async() =>{
-  try{
-    await mongoose.connect("mongodb+srv://salinamainali_db_user:mern123@cluster0.t0sres5.mongodb.net/mern");
-    await department.deleteMany();
-let res = await department.create(departmentsData);
-  }catch(error){
-    console.log(error);
-    
-  }
+const seedDepartments = async() =>{
+try{
+await mongoose.connect(process.env.MONGO_URI);
+await Department.deleteMany();
+await Department.insertMany(departmentData);
+console.log("department seeded");
+await mongoose.connection.close();
+
+}catch(error){
+console.error("department seed error "+error)
+} 
 }
 
-departmentSeed();
-
+seedDepartments();
